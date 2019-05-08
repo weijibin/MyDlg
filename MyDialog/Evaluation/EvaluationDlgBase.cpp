@@ -9,12 +9,24 @@ EvaluationDlgBase::EvaluationDlgBase(QWidget *parent) : QWidget(parent)
     this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::Dialog);
     setAttribute(Qt::WA_TranslucentBackground);
 
-    QFrame *frame = new QFrame(this);
     QVBoxLayout * layout = new QVBoxLayout;
     layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(0);
+
+    QFrame *title = new QFrame(this);
+    title->setObjectName("titleEvaluation");
+    title->setFixedSize(100,100);
+    layout->addWidget(title);
+    layout->setAlignment(title,Qt::AlignHCenter);
+
+    QFrame *frame = new QFrame(this);
+    frame->setObjectName("bodyEvaluation");
     layout->addWidget(frame);
+
     setLayout(layout);
     setContentsMargins(0,0,0,0);
+
+
 }
 
 void EvaluationDlgBase::mousePressEvent(QMouseEvent *event)

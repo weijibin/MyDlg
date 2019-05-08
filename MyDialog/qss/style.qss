@@ -5,11 +5,16 @@ QWidget{
     border-radius: 20px;
 }
 
-QFrame
+QFrame#bodyEvaluation
 {
     background-color:#ffffff;
     border:none;
     border-radius:20px;
+}
+
+QFrame#titleEvaluation
+{
+    border-image:url(:/res/pic_qinggeilaoshipingjia.png)
 }
 
 QPushButton{
