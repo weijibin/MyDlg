@@ -6,7 +6,9 @@ class EvaluationResultDlg : public EvaluationDlgBase
 {
     Q_OBJECT
 public:
-    EvaluationResultDlg();
+    EvaluationResultDlg(QWidget *parent = 0);
+protected:
+    virtual void paintEvent(QPaintEvent *event) override;
 };
 
 #endif // EVALUATIONRESULTDLG_H

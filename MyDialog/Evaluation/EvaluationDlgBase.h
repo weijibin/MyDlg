@@ -16,6 +16,8 @@ public slots:
 protected:
     virtual void mousePressEvent(QMouseEvent*event) override;
     virtual void mouseMoveEvent(QMouseEvent*event) override;
+    virtual void paintEvent(QPaintEvent *event) override;
+//    virtual void resizeEvent(QResizeEvent *event) override;
 private:
     QPoint m_offset = QPoint();
 };

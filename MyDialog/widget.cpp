@@ -10,6 +10,7 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    this->setAutoFillBackground(true);
 
     QFile f(":/qss/style.qss");
     if ( f.open(QFile::ReadOnly) ) {
@@ -28,7 +29,8 @@ Widget::~Widget()
 void Widget::on_pushButton_clicked()
 {
     qDebug()<< QStringLiteral("评价窗口");
-    EvaluationDlg *dlg = new EvaluationDlg;
+    EvaluationDlg *dlg = new EvaluationDlg(this);
+    dlg->setObjectName("evaluationgDlg");
 //    dlg->setWindowModality(Qt::ApplicationModal);
     dlg->show();
 }
@@ -37,7 +39,8 @@ void Widget::on_pushButton_clicked()
 void Widget::on_pushButton_2_clicked()
 {
     qDebug()<<QStringLiteral("成功提示窗口");
-    EvaluationResultDlg *dlg = new EvaluationResultDlg;
+    EvaluationResultDlg *dlg = new EvaluationResultDlg(this);
+    dlg->setObjectName("evaluationResultDlg");
 //    dlg->setWindowModality(Qt::ApplicationModal);
     dlg->show();
 }
@@ -46,7 +49,8 @@ void Widget::on_pushButton_2_clicked()
 void Widget::on_pushButton_3_clicked()
 {
     qDebug()<<QStringLiteral("重试窗口");
-    EvaluationRetryDlg *dlg = new EvaluationRetryDlg;
+    EvaluationRetryDlg *dlg = new EvaluationRetryDlg(this);
+    dlg->setObjectName("evaluationRetryDlg");
 //    dlg->setWindowModality(Qt::ApplicationModal);
     dlg->show();
 }

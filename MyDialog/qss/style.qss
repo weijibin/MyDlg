@@ -1,4 +1,18 @@
-QPushButton {
+QWidget{
+    background-color: ;
+    border-style: solid;
+    border: 2px solid gray;
+    border-radius: 20px;
+}
+
+QFrame
+{
+    background-color:#ffffff;
+    border:none;
+    border-radius:20px;
+}
+
+QPushButton{
     padding: 1px;
     border-style: solid;
     border: 2px solid gray;
