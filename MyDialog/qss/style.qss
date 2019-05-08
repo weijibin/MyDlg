@@ -1,0 +1,7 @@
+QPushButton {
+    padding: 1px;
+    border-style: solid;
+    border: 2px solid gray;
+    border-radius: 8px;
+    border-image:url(:/res/icon_manyi click.png)
+}

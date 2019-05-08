@@ -13,8 +13,19 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    Evaluation/EvaluationDlgBase.cpp \
+    Evaluation/EvaluationRetryDlg.cpp \
+    Evaluation/EvaluationResultDlg.cpp \
+    Evaluation/EvaluationDlg.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    Evaluation/EvaluationDlgBase.h \
+    Evaluation/EvaluationRetryDlg.h \
+    Evaluation/EvaluationResultDlg.h \
+    Evaluation/EvaluationDlg.h
 
 FORMS    += widget.ui
+
+RESOURCES += \
+    res.qrc
