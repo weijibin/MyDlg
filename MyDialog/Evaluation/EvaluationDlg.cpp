@@ -6,6 +6,8 @@ EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
 {
     setFixedSize(297,249);
 
+    insertTitle();
+
 //    QWidget *title = new QWidget(this);
 //    title->setFixedSize(100,100);
 
