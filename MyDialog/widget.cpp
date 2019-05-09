@@ -44,13 +44,13 @@ void Widget::on_pushButton_clicked()
         QMap<int,QStringList> map;
         QStringList fonts1;
         fonts1<< "Arial" << "Helvetica" << "Times" << "Courier";
-        map.insert(1,fonts1);
+        map.insert(0,fonts1);
         QStringList fonts2;
         fonts2 << "Arial22" << "Helvetica22" << "Times22" << "Courier22";
-        map.insert(2,fonts2);
+        map.insert(1,fonts2);
         QStringList fonts3;
         fonts3 << "Arial33" << "Helvetica33" << "Times33" << "Courier33";
-        map.insert(3,fonts3);
+        map.insert(2,fonts3);
         temp1.detailDscrb = map;
         temp1.isNeedTxtEvl = true;
 
@@ -69,8 +69,6 @@ void Widget::on_pushButton_clicked()
         infos.insert(temp2.type,temp2);
         dlg->setEvlTemplate(infos);
     }
-
-
 
 //    dlg->setWindowModality(Qt::ApplicationModal);
     dlg->show();
