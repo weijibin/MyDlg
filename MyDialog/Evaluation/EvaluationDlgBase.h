@@ -1,22 +1,51 @@
-#ifndef EVALUATIONDLGBASE_H
+﻿#ifndef EVALUATIONDLGBASE_H
 #define EVALUATIONDLGBASE_H
 
 #include <QWidget>
-
+#include <QPixmap>
+#include <QMap>
 class QMouseEvent;
 class QVBoxLayout;
 class QFrame;
 class QPushButton;
 
+struct TeacherEvlTemplate
+{
+   QString name;
+   QPixmap img;
+   QStringList resumeDscrb;
+   QMap<int,QStringList> detailDscrb;
+   bool isNeedTxtEvl=true;
+   int type=1; //1,主讲  2,辅导
+};
+
+struct TeacherEvlResult
+{
+   QString resumeEvl;
+   QStringList detailEvl;
+   QString textEvl;
+   int type=1; //1,主讲  2,辅导
+};
+
 class EvaluationDlgBase : public QWidget
 {
+
     Q_OBJECT
 public:
     explicit EvaluationDlgBase(QWidget *parent = 0);
 
+    const QMap<int,TeacherEvlResult>& getResultInfo(){return m_resultInfo;}
+    void setResultInfo(QMap<int,TeacherEvlResult> &info) {m_resultInfo = info;}
+
+    const QMap<int,TeacherEvlTemplate>& getEvlTemplate(){return m_evlTemplate;}
+    void setEvlTemplate(QMap<int,TeacherEvlTemplate> &info);
+
 signals:
+    void sigSubmitResult(QMap<int,TeacherEvlResult> &info);
 
 public slots:
+    void sltSubmitResult(bool isSuccess);
+
 protected:
     virtual void mousePressEvent(QMouseEvent*event) override;
     virtual void mouseMoveEvent(QMouseEvent*event) override;
@@ -31,6 +60,9 @@ protected:
 private:
     QPoint m_offset = QPoint();
     QVBoxLayout * m_layout;
+
+    QMap<int,TeacherEvlResult> m_resultInfo;
+    QMap<int,TeacherEvlTemplate> m_evlTemplate;
 };
 
 #endif // EVALUATIONDLGBASE_H

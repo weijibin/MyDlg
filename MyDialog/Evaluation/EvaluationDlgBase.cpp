@@ -71,3 +71,24 @@ void EvaluationDlgBase::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
+
+void EvaluationDlgBase::sltSubmitResult(bool isSuccess)
+{
+    if(isSuccess)
+    {
+
+    }
+    else
+    {
+
+    }
+}
+
+void EvaluationDlgBase::setEvlTemplate(QMap<int, TeacherEvlTemplate> &info)
+{
+    m_evlTemplate = info;
+}
+
+
+
+
