@@ -3,31 +3,47 @@
 #include <QPainter>
 #include <QFrame>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QMouseEvent>
+#include <QPushButton>
 
-EvaluationDlgBase::EvaluationDlgBase(QWidget *parent) : QWidget(parent)
+const int titlePngWidth = 314;
+const int titlePngHeight = 206;
+
+EvaluationDlgBase::EvaluationDlgBase(QWidget *parent) : QWidget(parent),m_excessHeight(144)
 {
     this->setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::Dialog);
     setAttribute(Qt::WA_TranslucentBackground);
 
     m_layout = new QVBoxLayout;
     m_layout->setContentsMargins(0,0,0,0);
-    m_layout->setSpacing(0);
-
-    QFrame *frame = new QFrame(this);
-    frame->setObjectName("bodyEvaluation");
-    m_layout->addWidget(frame);
-
-    setLayout(m_layout);
-    setContentsMargins(0,0,0,0);
-
+    m_layout->setSpacing(0); 
 }
 
 void EvaluationDlgBase::insertTitle()
 {
     QFrame *title = new QFrame(this);
     title->setObjectName("titleEvaluation");
-    title->setFixedSize(100,100);
-    m_layout->insertWidget(0,title,0,Qt::AlignHCenter);
+    title->setFixedSize(titlePngWidth,titlePngHeight);
+    title->move((width()-titlePngWidth)/2,0);
+}
+
+void EvaluationDlgBase::initBody()
+{
+    m_frame = new QFrame(this);
+    m_frame->setObjectName("bodyEvaluation");
+
+    m_closeBtn = new QPushButton(m_frame);
+    m_closeBtn->setObjectName("evaluationClose");
+    m_closeBtn->setFixedSize(20,20);
+
+    m_layout->addWidget(m_frame);
+    setContentsMargins(0,m_excessHeight,0,0);
+    setLayout(m_layout);
+
+    connect(m_closeBtn,&QPushButton::clicked,[=](){
+        this->close();
+    });
 }
 
 void EvaluationDlgBase::mousePressEvent(QMouseEvent *event)
@@ -55,8 +71,3 @@ void EvaluationDlgBase::paintEvent(QPaintEvent *)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
-
-//void EvaluationDlgBase::resizeEvent(QResizeEvent *event)
-//{
-
-//}

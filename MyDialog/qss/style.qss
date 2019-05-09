@@ -1,26 +1,78 @@
-QWidget{
+/*QWidget{
     background-color: ;
     border-style: solid;
     border: 2px solid gray;
     border-radius: 20px;
 }
-
-QFrame#bodyEvaluation
-{
-    background-color:#ffffff;
-    border:none;
-    border-radius:20px;
-}
-
-QFrame#titleEvaluation
-{
-    border-image:url(:/res/pic_qinggeilaoshipingjia.png)
-}
-
-QPushButton{
+QPushButton#retryBtn{
     padding: 1px;
     border-style: solid;
     border: 2px solid gray;
     border-radius: 8px;
     border-image:url(:/res/icon_manyi click.png)
+}*/
+
+
+QFrame#titleEvaluation{
+    border-image:url(:/res/pic_qinggeilaoshipingjia.png)
+}
+QFrame#bodyEvaluation{
+    background-color:#ffffff;
+    border:none;
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    border-bottom-right-radius:8px;
+    border-bottom-left-radius:8px;
+}
+
+QLabel#resultLabel{
+    border-image:url(:/res/icon_tijiaochenggong.png)
+}
+QLabel#resultTip,#retryTip{
+    border: none;
+    color: #5E5E7F;
+    font-size:14px;
+}
+
+QPushButton#evaluationClose{
+    border: none;
+    border-image:url(:/res/icon_tuichu nor.png)
+}
+QPushButton#evaluationClose:hover {
+    border: none;
+    border-image:url(:/res/icon_tuichu hover.png)
+}
+QPushButton#evaluationClose:pressed {
+    border: none;
+    border-image:url(:/res/icon_tuichu click.png)
+}
+
+QPushButton#retryBtn{
+    border: none;
+    border-image:url(:/res/button_chongshi nor.png)
+}
+QPushButton#retryBtn:hover{
+    border: none;
+    border-image:url(:/res/button_chongshi hover.png)
+}
+QPushButton#retryBtn:pressed{
+    border: none;
+    border-image:url(:/res/button_chongshi click.png)
+}
+
+QPushButton#sumitBtn{
+    border: none;
+    border-image:url(:/res/PJ_button_nimingtijiaobingtuichu nor.png)
+}
+QPushButton#sumitBtn:hover{
+    border: none;
+    border-image:url(:/res/PJ_button_nimingtijiaobingtuichu hover.png)
+}
+QPushButton#sumitBtn:pressed{
+    border: none;
+    border-image:url(:/res/PJ_button_nimingtijiaobingtuichu click.png)
+}
+QPushButton#loadingBtn{
+    border: none;
+    border-image:url(:/res/PJ_button_nimingtijiaobingtuichu loading.png)
 }

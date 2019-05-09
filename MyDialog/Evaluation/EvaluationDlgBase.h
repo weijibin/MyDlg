@@ -2,8 +2,11 @@
 #define EVALUATIONDLGBASE_H
 
 #include <QWidget>
-#include <QMouseEvent>
-#include <QVBoxLayout>
+
+class QMouseEvent;
+class QVBoxLayout;
+class QFrame;
+class QPushButton;
 
 class EvaluationDlgBase : public QWidget
 {
@@ -20,7 +23,11 @@ protected:
     virtual void paintEvent(QPaintEvent *event) override;
 
     void insertTitle();
-//    virtual void resizeEvent(QResizeEvent *event) override;
+    virtual void initBody();
+protected:
+    const int m_excessHeight;
+    QFrame * m_frame;
+    QPushButton *m_closeBtn;
 private:
     QPoint m_offset = QPoint();
     QVBoxLayout * m_layout;

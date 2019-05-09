@@ -9,6 +9,7 @@ public:
     EvaluationResultDlg(QWidget *parent = 0);
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
+    virtual void initBody() override;
 };
 
 #endif // EVALUATIONRESULTDLG_H

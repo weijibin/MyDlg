@@ -1,6 +1,7 @@
 ﻿#include "widget.h"
 #include "ui_widget.h"
 #include <QDebug>
+#include <QFile>
 #include "Evaluation/EvaluationDlg.h"
 #include "Evaluation/EvaluationRetryDlg.h"
 #include "Evaluation/EvaluationResultDlg.h"

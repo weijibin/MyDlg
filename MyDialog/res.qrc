@@ -23,5 +23,9 @@
         <file>res/PJ_button_nimingtijiaobingtuichu hover.png</file>
         <file>res/PJ_button_nimingtijiaobingtuichu nor.png</file>
         <file>qss/style.qss</file>
+        <file>res/button_chongshi click.png</file>
+        <file>res/button_chongshi hover.png</file>
+        <file>res/button_chongshi nor.png</file>
+        <file>res/PJ_button_nimingtijiaobingtuichu loading.png</file>
     </qresource>
 </RCC>
