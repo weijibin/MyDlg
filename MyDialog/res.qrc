@@ -27,5 +27,8 @@
         <file>res/button_chongshi hover.png</file>
         <file>res/button_chongshi nor.png</file>
         <file>res/PJ_button_nimingtijiaobingtuichu loading.png</file>
+        <file>res/default_teacher.png</file>
+        <file>res/default_girl_img.png</file>
+        <file>res/xue.png</file>
     </qresource>
 </RCC>

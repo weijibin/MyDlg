@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QScrollArea>
+#include "TeacherPage/TeacherEvlPage.h"
 
 EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
 {
@@ -27,12 +28,12 @@ void EvaluationDlg::initBody()
 {
     EvaluationDlgBase::initBody();
 
-    QVBoxLayout *layout = new QVBoxLayout(m_frame);
+    QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0,0,0,0);
     layout->addSpacing(12);
     layout->setSpacing(0);
 
-    QHBoxLayout *hLayout = new QHBoxLayout(m_frame);
+    QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->setContentsMargins(0,0,12,0);
     hLayout->addStretch();
     hLayout->addWidget(m_closeBtn);
@@ -43,7 +44,7 @@ void EvaluationDlg::initBody()
     layout->addSpacing(37);
 
 
-    QHBoxLayout *hLayoutScrol = new QHBoxLayout(m_frame);
+    QHBoxLayout *hLayoutScrol = new QHBoxLayout();
     hLayoutScrol->setContentsMargins(20,0,20,0);
     m_scrollEvlt = new QScrollArea(m_frame);
     m_scrollEvlt->setObjectName("scrollEvlt");
@@ -71,6 +72,12 @@ void EvaluationDlg::initBody()
         m_submitBtn->style()->unpolish(m_submitBtn);
         m_submitBtn->style()->polish(m_submitBtn);
         m_submitBtn->update();
+
+        TeacherEvlPage * page1 = new TeacherEvlPage(m_evlTemplate.first(), this);
+        page1->show();
+
+        TeacherEvlPage * page2 = new TeacherEvlPage(m_evlTemplate.last(), this);
+        page2->show();
     });
 
 //    m_loadingBtn = new QPushButton(m_frame);

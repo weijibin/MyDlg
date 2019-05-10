@@ -17,13 +17,17 @@ SOURCES += main.cpp\
     Evaluation/EvaluationDlgBase.cpp \
     Evaluation/EvaluationRetryDlg.cpp \
     Evaluation/EvaluationResultDlg.cpp \
-    Evaluation/EvaluationDlg.cpp
+    Evaluation/EvaluationDlg.cpp \
+    Evaluation/TeacherPage/TeacherEvlPage.cpp \
+    Evaluation/TeacherPage/TeacherHeadImg.cpp
 
 HEADERS  += widget.h \
     Evaluation/EvaluationDlgBase.h \
     Evaluation/EvaluationRetryDlg.h \
     Evaluation/EvaluationResultDlg.h \
-    Evaluation/EvaluationDlg.h
+    Evaluation/EvaluationDlg.h \
+    Evaluation/TeacherPage/TeacherEvlPage.h \
+    Evaluation/TeacherPage/TeacherHeadImg.h
 
 FORMS    += widget.ui
 

@@ -57,12 +57,13 @@ protected:
     const int m_excessHeight;
     QFrame * m_frame;
     QPushButton *m_closeBtn;
+
+    QMap<int,TeacherEvlResult> m_resultInfo;
+    QMap<int,TeacherEvlTemplate> m_evlTemplate;
 private:
     QPoint m_offset = QPoint();
     QVBoxLayout * m_layout;
 
-    QMap<int,TeacherEvlResult> m_resultInfo;
-    QMap<int,TeacherEvlTemplate> m_evlTemplate;
 };
 
 #endif // EVALUATIONDLGBASE_H

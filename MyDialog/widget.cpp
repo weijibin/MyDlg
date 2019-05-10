@@ -35,7 +35,7 @@ void Widget::on_pushButton_clicked()
 
     {
         TeacherEvlTemplate temp1;
-        temp1.img = QPixmap();
+        temp1.img = QPixmap(":/res/default_girl_img.png");
         temp1.name = "111111";
         temp1.type = 1;
         temp1.resumeDscrb = QStringList()<<QStringLiteral("满意")<<QStringLiteral("一般")
@@ -56,8 +56,9 @@ void Widget::on_pushButton_clicked()
 
 
         TeacherEvlTemplate temp2;
-        temp2.img = QPixmap();
-        temp2.name = "111111";
+        temp2.img = QPixmap(":/res/xue.png");
+//        temp2.img = QPixmap(":/res/default_girl_img.png");;
+        temp2.name = "222222";
         temp2.type = 2;
         temp2.resumeDscrb = QStringList()<<QStringLiteral("满意")<<QStringLiteral("一般")
                                         <<QStringLiteral("不满意");

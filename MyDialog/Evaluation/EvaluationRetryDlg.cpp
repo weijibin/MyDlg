@@ -20,12 +20,12 @@ void EvaluationRetryDlg::initBody()
 {
     EvaluationDlgBase::initBody();
 
-    QVBoxLayout *layout = new QVBoxLayout(m_frame);
+    QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0,0,0,0);
     layout->addSpacing(12);
     layout->setSpacing(0);
 
-    QHBoxLayout *hLayout = new QHBoxLayout(m_frame);
+    QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->setContentsMargins(0,0,12,0);
     hLayout->addStretch();
     hLayout->addWidget(m_closeBtn);

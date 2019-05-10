@@ -81,3 +81,27 @@ QPushButton#loadingBtn{
     border: none;
     border-image:url(:/res/PJ_button_nimingtijiaobingtuichu loading.png)
 }
+
+QFrame#evlPageLeft{
+    background-color: #f3f8ff;
+    border-top-left-radius:8px;
+    border-bottom-left-radius:8px;
+}
+QFrame#evlPageRight{
+    background-color: #f3f8ff;
+    border-top-right-radius:8px;
+    border-bottom-right-radius:8px;
+}
+QLabel#teacherName{
+    border: none;
+    color: #5E5E7F;
+    font-size:14px;
+}
+/*QPushButton#teacherImg[teacherType="speaker"]{
+    border-image:url(:/res/main.png)
+}
+QPushButton#teacherImg[teacherType="tutor"]{
+    border: none;
+    border-image:url(:/res/assist.png)
+}*/
+

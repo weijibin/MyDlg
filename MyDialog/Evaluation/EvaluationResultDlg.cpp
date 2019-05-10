@@ -21,7 +21,7 @@ void EvaluationResultDlg::paintEvent(QPaintEvent *event)
 void EvaluationResultDlg::initBody()
 {
     EvaluationDlgBase::initBody();
-    QVBoxLayout *layout = new QVBoxLayout(m_frame);
+    QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0,0,0,0);
     layout->addSpacing(20);
     QLabel* label = new QLabel(m_frame);
