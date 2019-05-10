@@ -38,7 +38,7 @@ public:
     void setResultInfo(QMap<int,TeacherEvlResult> &info) {m_resultInfo = info;}
 
     const QMap<int,TeacherEvlTemplate>& getEvlTemplate(){return m_evlTemplate;}
-    void setEvlTemplate(QMap<int,TeacherEvlTemplate> &info);
+    virtual void setEvlTemplate(QMap<int,TeacherEvlTemplate> &info);
 
 signals:
     void sigSubmitResult(QMap<int,TeacherEvlResult> &info);

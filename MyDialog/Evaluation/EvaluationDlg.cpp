@@ -13,8 +13,8 @@ EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
     initBody();
     insertTitle();
 
-    m_loadingBtn->setVisible(false);
-    m_sumitBtn->setVisible(true);
+//    m_loadingBtn->setVisible(false);
+    m_submitBtn->setVisible(true);
 
 }
 
@@ -45,25 +45,53 @@ void EvaluationDlg::initBody()
 
     QHBoxLayout *hLayoutScrol = new QHBoxLayout(m_frame);
     hLayoutScrol->setContentsMargins(20,0,20,0);
-    QScrollArea *scrollEvlt = new QScrollArea(m_frame);
-    scrollEvlt->setObjectName("scrollEvlt");
-    hLayoutScrol->addWidget(scrollEvlt);
+    m_scrollEvlt = new QScrollArea(m_frame);
+    m_scrollEvlt->setObjectName("scrollEvlt");
+    hLayoutScrol->addWidget(m_scrollEvlt);
     layout->addLayout(hLayoutScrol);
 
     layout->addSpacing(20);
 
-    m_sumitBtn = new QPushButton(m_frame);
-    m_sumitBtn->setObjectName("sumitBtn");
-    m_sumitBtn->setFixedSize(179,40);
-    layout->addWidget(m_sumitBtn,0,Qt::AlignCenter);
+    m_submitBtn = new QPushButton(m_frame);
+    m_submitBtn->setObjectName("submitBtn");
+    m_submitBtn->setFixedSize(179,40);
+    layout->addWidget(m_submitBtn,0,Qt::AlignCenter);
 
-    m_loadingBtn = new QPushButton(m_frame);
-    m_loadingBtn->setObjectName("loadingBtn");
-    m_loadingBtn->setFixedSize(179,40);
-    layout->addWidget(m_loadingBtn,0,Qt::AlignCenter);
-    m_loadingBtn->setDisabled(true);
+    m_submitBtn->setProperty("statusPropery",QString("submit"));
+    m_submitBtn->style()->unpolish(m_submitBtn);
+    m_submitBtn->style()->polish(m_submitBtn);
+
+    connect(m_submitBtn,&QPushButton::clicked,[=]()
+    {
+        QString temp = m_submitBtn->property("statusPropery").toString();
+        if(temp == "submit")
+            m_submitBtn->setProperty("statusPropery",QString("loading"));
+        else
+            m_submitBtn->setProperty("statusPropery",QString("submit"));
+        m_submitBtn->style()->unpolish(m_submitBtn);
+        m_submitBtn->style()->polish(m_submitBtn);
+        m_submitBtn->update();
+    });
+
+//    m_loadingBtn = new QPushButton(m_frame);
+//    m_loadingBtn->setObjectName("loadingBtn");
+//    m_loadingBtn->setFixedSize(179,40);
+//    layout->addWidget(m_loadingBtn,0,Qt::AlignCenter);
+//    m_loadingBtn->setDisabled(true);
 
 
     layout->addSpacing(24);
     m_frame->setLayout(layout);
+}
+
+void EvaluationDlg::setEvlTemplate(QMap<int, TeacherEvlTemplate> &info)
+{
+    EvaluationDlgBase::setEvlTemplate(info);
+    if(info.size()>0)
+        updateUiByTemplate();
+}
+
+void EvaluationDlg::updateUiByTemplate()
+{
+
 }

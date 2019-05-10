@@ -67,6 +67,7 @@ void Widget::on_pushButton_clicked()
         QMap<int,TeacherEvlTemplate> infos;
         infos.insert(temp1.type,temp1);
         infos.insert(temp2.type,temp2);
+
         dlg->setEvlTemplate(infos);
     }
 

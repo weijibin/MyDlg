@@ -60,17 +60,22 @@ QPushButton#retryBtn:pressed{
     border-image:url(:/res/button_chongshi click.png)
 }
 
-QPushButton#sumitBtn{
+QPushButton#submitBtn[statusPropery="submit"]{
     border: none;
     border-image:url(:/res/PJ_button_nimingtijiaobingtuichu nor.png)
 }
-QPushButton#sumitBtn:hover{
+QPushButton#submitBtn[statusPropery="submit"]:hover{
     border: none;
     border-image:url(:/res/PJ_button_nimingtijiaobingtuichu hover.png)
 }
-QPushButton#sumitBtn:pressed{
+QPushButton#submitBtn[statusPropery="submit"]:pressed{
     border: none;
     border-image:url(:/res/PJ_button_nimingtijiaobingtuichu click.png)
+}
+
+QPushButton#submitBtn[statusPropery="loading"]{
+    border: none;
+    border-image:url(:/res/PJ_button_nimingtijiaobingtuichu loading.png)
 }
 QPushButton#loadingBtn{
     border: none;
