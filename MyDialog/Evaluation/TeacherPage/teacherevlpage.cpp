@@ -6,7 +6,10 @@
 #include <QGroupBox>
 #include <QTextEdit>
 #include <QString>
+#include <QStackedWidget>
+#include <QButtonGroup>
 #include "TeacherHeadImg.h"
+#include <QGridLayout>
 
 TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QWidget(parent)
 {
@@ -76,14 +79,67 @@ void TeacherEvlPage::initRight()
     right->setSpacing(0);
     right->setContentsMargins(0,31,20,20);
 
-    QGroupBox *box1 = new QGroupBox(this);
-    QGroupBox *box2 = new QGroupBox(this);
-    QTextEdit *edit = new QTextEdit(this);
+    m_resumeWidget = new QWidget(this);
+    m_resumeWidget->setObjectName("resumeWidget");
+    m_resumeWidget->setFixedSize(414,45);
+    m_resumeWidget->setAttribute(Qt::WA_TranslucentBackground);
 
-    right->addWidget(box1);
-    right->addWidget(box2);
-    right->addWidget(edit);
-    right->addStretch();
+    {
+        QHBoxLayout *layoutResum = new QHBoxLayout;
+        layoutResum->setContentsMargins(0,0,0,0);
+        layoutResum->setSpacing(23);
+        m_resumeGroup = new QButtonGroup;
+
+        for(int i = 0; i<m_template.resumeDscrb.size(); i++)
+        {
+            QPushButton *btn = new QPushButton;
+            btn->setObjectName(QString("resumesBtn%1").arg(i));
+            btn->setFixedHeight(43);
+            btn->setCheckable(true);
+
+            connect(btn,&QPushButton::clicked,[=](){
+                m_stackWidget->setCurrentIndex(i);
+
+                m_stackWidget->setVisible(true);
+                m_textEdit->setVisible(true);
+            });
+
+            layoutResum->addWidget(btn);
+            m_resumeGroup->addButton(btn,i);
+//            btn->setChecked(true);
+        }
+
+        m_resumeWidget->setLayout(layoutResum);
+    }
+
+
+    m_stackWidget = new QStackedWidget(this);
+
+    for(int i=0; i<m_template.resumeDscrb.size(); i++)
+    {
+        QWidget *w = new QWidget;
+        w->setFixedSize(414,100);
+        w->setObjectName(QString("resumesWidget%1").arg(i));
+        m_stackWidget->addWidget(w);
+
+        {
+
+        }
+    }
+
+    m_textEdit = new QTextEdit(this);
+    m_textEdit->setObjectName("textEvlPage");
+    m_textEdit->setFixedSize(414,80);
+
+    right->addWidget(m_resumeWidget);
+    right->addSpacing(8);
+    right->addWidget(m_stackWidget);
+    right->addSpacing(12);
+    right->addWidget(m_textEdit);
 
     m_right->setLayout(right);
+
+    m_stackWidget->setVisible(false);
+    m_textEdit->setVisible(false);
+
 }

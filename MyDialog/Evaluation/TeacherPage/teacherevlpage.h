@@ -9,6 +9,9 @@
 class QLabel;
 class QPushButton;
 class TeacherHeadImg;
+class QStackedWidget;
+class QTextEdit;
+class QButtonGroup;
 
 class TeacherEvlPage : public QWidget
 {
@@ -32,6 +35,18 @@ private:
 
     QLabel * m_teacherName;
     TeacherHeadImg * m_teacherImg;
+
+    QWidget * m_resumeWidget;
+    QButtonGroup * m_resumeGroup;
+    QList<QPushButton*> *m_resumeBtns;
+
+    QButtonGroup * m_detailGroup0;
+    QButtonGroup * m_detailGroup1;
+    QButtonGroup * m_detailGroup2;
+
+
+    QStackedWidget * m_stackWidget;
+    QTextEdit * m_textEdit;
 };
 
 #endif // TEACHEREVLPAGE_H

@@ -97,11 +97,157 @@ QLabel#teacherName{
     color: #5E5E7F;
     font-size:14px;
 }
-/*QPushButton#teacherImg[teacherType="speaker"]{
-    border-image:url(:/res/main.png)
-}
-QPushButton#teacherImg[teacherType="tutor"]{
+
+QPushButton#resumesBtn0{
     border: none;
-    border-image:url(:/res/assist.png)
+    border-image:url(:/res/icon_bumanyi nor.png)
+}
+QPushButton#resumesBtn0:hover{
+    border: none;
+    border-image:url(:/res/icon_bumanyi hover.png)
+}
+QPushButton#resumesBtn0:pressed{
+    border: none;
+    border-image:url(:/res/icon_bumanyi click.png)
+}
+QPushButton#resumesBtn0:checked{
+    border: none;
+    border-image:url(:/res/icon_bumanyi click.png)
+}
+
+QPushButton#resumesBtn1{
+    border: none;
+    border-image:url(:/res/icon_youdaitigao nor.png)
+}
+QPushButton#resumesBtn1:hover{
+    border: none;
+    border-image:url(:/res/icon_youdaitigao hover.png)
+}
+QPushButton#resumesBtn1:pressed{
+    border: none;
+    border-image:url(:/res/icon_youdaitigao click.png)
+}
+QPushButton#resumesBtn1:checked{
+    border: none;
+    border-image:url(:/res/icon_youdaitigao click.png)
+}
+
+QPushButton#resumesBtn2{
+    border: none;
+    border-image:url(:/res/icon_manyi nor.png)
+}
+QPushButton#resumesBtn2:hover{
+    border: none;
+    border-image:url(:/res/icon_manyi hover.png)
+}
+QPushButton#resumesBtn2:pressed{
+    border: none;
+    border-image:url(:/res/icon_manyi click.png)
+}
+QPushButton#resumesBtn2:checked{
+    border: none;
+    border-image:url(:/res/icon_manyi click.png)
+}
+
+QWidget#resumesWidget0{
+    background-color:#ffff00;
+}
+QWidget#resumesWidget1{
+    background-color:#ff00ff;
+}
+QWidget#resumesWidget2{
+    background-color:#00ffff;
+}
+
+QTextEdit#textEvlPage{
+    border-radius: 8px;
+    background: #ffffff;
+    padding-top:10px;
+    padding-right:16px;
+    padding-bottom:3px;
+    padding-left:16px;
+    font-size: 12px
+}
+
+QScrollArea{
+  border:0px solid;
+  border-radius: 2px;
+}
+
+QScrollBar:vertical
+{
+  width: 4px;
+  border:0px solid;
+  border-radius: 2px;
+  margin: 0px,0px,0px,0px;
+  background-color: transparent;
+  background:#F5F5F5;
+}
+
+QScrollBar:vertical:hover
+{
+  width: 4px;
+  border:0px solid;
+  margin: 0px,0px,0px,0px;
+  background:#F5F5F5;
+}
+
+QScrollBar::handle:vertical
+{
+  width:4px;
+  background:#E1E1E1;
+  border-radius: 2px;
+  height: 40px;
+
+}
+
+QScrollBar::handle:vertical:hover
+{
+  background:#E1E1E1;
+  border-radius: 2px;
+}
+
+QScrollBar::add-line:vertical
+{
+  height:11px;
+  background-color: transparent;
+  subcontrol-position:bottom;
+  border:0px solid;
+  border-radius: 2px;
+
+}
+QScrollBar::sub-line:vertical
+{
+  height:11px;
+  background-color: transparent;
+  subcontrol-position:top;
+  border:0px solid;
+  border-radius: 2px;
+}
+
+QScrollBar::add-page:vertical
+{
+  background-color: #F5F5F5;
+  border:0px solid;
+  border-radius: 2px;
+}
+
+QScrollBar::sub-page:vertical
+{
+  background-color: #F5F5F5;
+  border:0px solid;
+  border-radius: 2px;
+}
+
+/*QScrollBar::up-arrow:vertical{
+  image : url(:/image/scroll_up_arrow.png);
+  border:0px solid;
+  border-radius: 3px;
+}
+
+QScrollBar::down-arrow:vertical {
+  image : url(:/image/scroll_down_arrow.png);
+  border:0px solid;
+  border-radius: 3px;
 }*/
 
