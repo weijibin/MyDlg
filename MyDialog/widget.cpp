@@ -46,7 +46,7 @@ void Widget::on_pushButton_clicked()
         fonts1<< "Arial" << QStringLiteral("讲的太快了") << QStringLiteral("很好，不能再好了") << "Courier";
         map.insert(0,fonts1);
         QStringList fonts2;
-        fonts2 << "Arial22" << "Helvetica22" << "Times22" << "Courier22";
+        fonts2 << "Arial22" << "Helvetica22" << "Times22" ;
         map.insert(1,fonts2);
         QStringList fonts3;
         fonts3 << "Arial33" << "Helvetica33" << "Times33" << "Courier33";

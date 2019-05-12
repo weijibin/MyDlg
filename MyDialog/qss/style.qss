@@ -207,9 +207,14 @@ QTextEdit#textEvlPage{
     font-size: 12px
 }
 
+QWidget#evlScrollWidget{
+    background-color: #ffffff;
+}
+
 QScrollArea{
   border:0px solid;
   border-radius: 2px;
+  background-color: #f3f8ff;
 }
 
 QScrollBar:vertical

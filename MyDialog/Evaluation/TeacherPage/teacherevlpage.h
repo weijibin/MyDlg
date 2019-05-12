@@ -16,9 +16,12 @@ class QButtonGroup;
 class TeacherEvlPage : public QWidget
 {
     Q_OBJECT
+    Q_PROPERTY(float process READ getProcess WRITE setProcess)
 public:
     explicit TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent = 0);
     const TeacherEvlResult& getResult();
+    float getProcess(){return m_process;}
+    void  setProcess(float val);
 signals:
 
 public slots:
@@ -29,9 +32,13 @@ private:
     void initRight();
 
     void updateRightWhenChecked();
+    void spreadAnimation();
 private:
     TeacherEvlTemplate m_template;
     TeacherEvlResult m_result;
+private:
+    float m_process=0;
+    bool m_isFirstAni = true;
 private:
     QFrame *m_left;
     QFrame *m_right;

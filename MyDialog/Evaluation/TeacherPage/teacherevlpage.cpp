@@ -10,6 +10,7 @@
 #include <QButtonGroup>
 #include "TeacherHeadImg.h"
 #include <QGridLayout>
+#include <QPropertyAnimation>
 #include <QDebug>
 
 TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QWidget(parent)
@@ -17,7 +18,7 @@ TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QW
     m_template = t;
     this->setFixedWidth(554);
     this->resize(554,283);
-    this->setWindowFlags(windowFlags()| /*Qt::FramelessWindowHint |*/ Qt::Dialog);
+//    this->setWindowFlags(windowFlags()| /*Qt::FramelessWindowHint | Qt::Dialog*/);
     this->setContentsMargins(0,0,0,0);
 
     initUI();
@@ -128,6 +129,11 @@ void TeacherEvlPage::initRight()
 //                TeacherEvlResult ret = getResult();
                 m_stackWidget->setCurrentIndex(i);
                 updateRightWhenChecked();
+
+                if(m_isFirstAni){
+                    spreadAnimation();
+                    m_isFirstAni = false;
+                }
             });
 
             layoutResum->addWidget(btn);
@@ -143,6 +149,7 @@ void TeacherEvlPage::initRight()
     for(int i=0; i<m_template.resumeDscrb.size(); i++)
     {
         QWidget *w = new QWidget;
+//        w->setFixedSize(414,100);
         w->setFixedSize(414,100);
         w->setObjectName(QString("resumesWidget%1").arg(i));
         m_stackWidget->addWidget(w);
@@ -175,7 +182,8 @@ void TeacherEvlPage::initRight()
     {
         m_textEdit = new QTextEdit(this);
         m_textEdit->setObjectName("textEvlPage");
-        m_textEdit->setFixedSize(414,80);
+//        m_textEdit->setFixedSize(414,80);
+        m_textEdit->setFixedSize(414,0);
         right->addSpacing(12);
         right->addWidget(m_textEdit);
         m_textEdit->setPlaceholderText(QStringLiteral("说说老师有哪里可以改进的呢？"));
@@ -202,4 +210,25 @@ void TeacherEvlPage::updateRightWhenChecked()
             m_textEdit->setVisible(false);
         }
     }
+}
+
+void TeacherEvlPage::setProcess(float val)
+{
+    m_process = val;
+//    qDebug()<<"TeacherEvlPage::setProcess==="<<val;
+    if(m_template.isNeedTxtEvl)
+    {
+        m_textEdit->setFixedHeight(val*80);
+    }
+    m_stackWidget->setFixedHeight(val*100);
+}
+
+void TeacherEvlPage::spreadAnimation()
+{
+//    qDebug()<<"TeacherEvlPage::spreadAnimation()";
+    QPropertyAnimation *animation = new QPropertyAnimation(this, "process");
+    animation->setDuration(1000);
+    animation->setStartValue(0);
+    animation->setEndValue(1);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
 }

@@ -18,6 +18,7 @@ private:
 private:
     QPushButton *m_submitBtn = nullptr;
     QScrollArea *m_scrollEvlt = nullptr;
+    QWidget *m_scrollWidget = nullptr;
 //    QPushButton *m_loadingBtn;
 };
 

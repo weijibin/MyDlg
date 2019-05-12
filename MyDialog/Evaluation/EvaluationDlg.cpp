@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QDebug>
 #include "TeacherPage/TeacherEvlPage.h"
 
 EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
@@ -48,9 +49,18 @@ void EvaluationDlg::initBody()
     hLayoutScrol->setContentsMargins(20,0,20,0);
     m_scrollEvlt = new QScrollArea(m_frame);
     m_scrollEvlt->setObjectName("scrollEvlt");
-    hLayoutScrol->addWidget(m_scrollEvlt);
-    layout->addLayout(hLayoutScrol);
 
+    m_scrollWidget = new QWidget;
+    m_scrollWidget->setObjectName("evlScrollWidget");
+    QVBoxLayout *layoutScroll = new QVBoxLayout;
+    layoutScroll->addWidget(m_scrollWidget);
+
+    m_scrollEvlt->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_scrollEvlt->setWidget(m_scrollWidget);
+
+    hLayoutScrol->addWidget(m_scrollEvlt);
+
+    layout->addLayout(hLayoutScrol);
     layout->addSpacing(20);
 
     m_submitBtn = new QPushButton(m_frame);
@@ -73,11 +83,11 @@ void EvaluationDlg::initBody()
         m_submitBtn->style()->polish(m_submitBtn);
         m_submitBtn->update();
 
-        TeacherEvlPage * page1 = new TeacherEvlPage(m_evlTemplate.first(), this);
-        page1->show();
+//        TeacherEvlPage * page1 = new TeacherEvlPage(m_evlTemplate.first(), this);
+//        page1->show();
 
-        TeacherEvlPage * page2 = new TeacherEvlPage(m_evlTemplate.last(), this);
-        page2->show();
+//        TeacherEvlPage * page2 = new TeacherEvlPage(m_evlTemplate.last(), this);
+//        page2->show();
     });
 
 //    m_loadingBtn = new QPushButton(m_frame);
@@ -88,6 +98,7 @@ void EvaluationDlg::initBody()
 
 
     layout->addSpacing(24);
+//    layout->setSizeConstraint(QLayout::SetFixedSize);
     m_frame->setLayout(layout);
 }
 
@@ -100,5 +111,16 @@ void EvaluationDlg::setEvlTemplate(QMap<int, TeacherEvlTemplate> &info)
 
 void EvaluationDlg::updateUiByTemplate()
 {
+    TeacherEvlPage * page1 = new TeacherEvlPage(m_evlTemplate.first(), this);
+    TeacherEvlPage * page2 = new TeacherEvlPage(m_evlTemplate.last(), this);
 
+    QVBoxLayout * scrolLayout = new QVBoxLayout;
+    scrolLayout->setContentsMargins(0,0,0,0);
+    scrolLayout->setSpacing(0);
+    scrolLayout->addWidget(page1);
+    scrolLayout->addSpacing(20);
+    scrolLayout->addWidget(page2);
+    scrolLayout->addStretch();
+    scrolLayout->setSizeConstraint(QLayout::SetFixedSize);
+    m_scrollWidget->setLayout(scrolLayout);
 }
