@@ -21,9 +21,9 @@ struct TeacherEvlTemplate
 
 struct TeacherEvlResult
 {
-   QString resumeEvl;
+   QString resumeEvl="";
    QStringList detailEvl;
-   QString textEvl;
+   QString textEvl="";
    int type=1; //1,主讲  2,辅导
 };
 

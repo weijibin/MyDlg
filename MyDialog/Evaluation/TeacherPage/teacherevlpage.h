@@ -18,7 +18,7 @@ class TeacherEvlPage : public QWidget
     Q_OBJECT
 public:
     explicit TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent = 0);
-
+    const TeacherEvlResult& getResult();
 signals:
 
 public slots:
@@ -27,8 +27,11 @@ private:
     void initUI();
     void initLeft();
     void initRight();
+
+    void updateRightWhenChecked();
 private:
     TeacherEvlTemplate m_template;
+    TeacherEvlResult m_result;
 private:
     QFrame *m_left;
     QFrame *m_right;
@@ -40,13 +43,13 @@ private:
     QButtonGroup * m_resumeGroup;
     QList<QPushButton*> *m_resumeBtns;
 
-    QButtonGroup * m_detailGroup0;
-    QButtonGroup * m_detailGroup1;
-    QButtonGroup * m_detailGroup2;
+    QList<QButtonGroup*> m_detailGroups;
 
 
     QStackedWidget * m_stackWidget;
-    QTextEdit * m_textEdit;
+
+
+    QTextEdit * m_textEdit = nullptr;
 };
 
 #endif // TEACHEREVLPAGE_H

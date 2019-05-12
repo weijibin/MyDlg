@@ -76,8 +76,8 @@ void EvaluationDlg::initBody()
         TeacherEvlPage * page1 = new TeacherEvlPage(m_evlTemplate.first(), this);
         page1->show();
 
-//        TeacherEvlPage * page2 = new TeacherEvlPage(m_evlTemplate.last(), this);
-//        page2->show();
+        TeacherEvlPage * page2 = new TeacherEvlPage(m_evlTemplate.last(), this);
+        page2->show();
     });
 
 //    m_loadingBtn = new QPushButton(m_frame);

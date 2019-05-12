@@ -10,18 +10,42 @@
 #include <QButtonGroup>
 #include "TeacherHeadImg.h"
 #include <QGridLayout>
+#include <QDebug>
 
 TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QWidget(parent)
 {
     m_template = t;
-
-//    this->setFixedSize(554,283);
     this->setFixedWidth(554);
     this->resize(554,283);
     this->setWindowFlags(windowFlags()| /*Qt::FramelessWindowHint |*/ Qt::Dialog);
     this->setContentsMargins(0,0,0,0);
 
     initUI();
+    m_result.type = m_template.type;
+//    this->adjustSize();
+}
+
+const TeacherEvlResult& TeacherEvlPage::getResult()
+{
+    int index = m_resumeGroup->checkedId();
+    if(index != -1)
+    {
+        m_result.resumeEvl = m_template.resumeDscrb.at(index);
+        m_result.detailEvl.clear();
+        QStringList lst = m_template.detailDscrb.value(index);
+        QButtonGroup*group = m_detailGroups.at(index);
+        foreach(QAbstractButton *btn, group->buttons())
+        {
+            if(btn->isChecked())
+            {
+                int id = group->id(btn);
+                m_result.detailEvl.append(lst.at(id));
+            }
+        }
+    }
+    if(m_template.isNeedTxtEvl && m_textEdit->toPlainText().count())
+        m_result.textEvl = m_textEdit->toPlainText();
+    return m_result;
 }
 
 void TeacherEvlPage::initUI()
@@ -42,6 +66,8 @@ void TeacherEvlPage::initUI()
 
     layout->addWidget(m_left);
     layout->addWidget(m_right);
+
+    layout->setSizeConstraint(QLayout::SetFixedSize);
 
     this->setLayout(layout);
 
@@ -96,17 +122,16 @@ void TeacherEvlPage::initRight()
             btn->setObjectName(QString("resumesBtn%1").arg(i));
             btn->setFixedHeight(43);
             btn->setCheckable(true);
+            btn->setContentsMargins(3,3,3,3);
 
             connect(btn,&QPushButton::clicked,[=](){
+//                TeacherEvlResult ret = getResult();
                 m_stackWidget->setCurrentIndex(i);
-
-                m_stackWidget->setVisible(true);
-                m_textEdit->setVisible(true);
+                updateRightWhenChecked();
             });
 
             layoutResum->addWidget(btn);
             m_resumeGroup->addButton(btn,i);
-//            btn->setChecked(true);
         }
 
         m_resumeWidget->setLayout(layoutResum);
@@ -123,23 +148,58 @@ void TeacherEvlPage::initRight()
         m_stackWidget->addWidget(w);
 
         {
-
+            QGridLayout * layoutGrid = new QGridLayout;
+            QStringList lst = m_template.detailDscrb.value(i);
+            QButtonGroup *group = new QButtonGroup(this);
+            for(int i = 0; i< lst.size(); i++)
+            {
+                QPushButton *btn = new QPushButton;
+                btn->setText(lst.at(i));
+                btn->setCheckable(true);
+                group->setExclusive(false);
+                group->addButton(btn,i);
+                int row = i/3;
+                int col = i%3;
+                layoutGrid->addWidget(btn,row,col);
+                w->setLayout(layoutGrid);
+            }
+            m_detailGroups.append(group);
         }
     }
-
-    m_textEdit = new QTextEdit(this);
-    m_textEdit->setObjectName("textEvlPage");
-    m_textEdit->setFixedSize(414,80);
 
     right->addWidget(m_resumeWidget);
     right->addSpacing(8);
     right->addWidget(m_stackWidget);
-    right->addSpacing(12);
-    right->addWidget(m_textEdit);
 
+    if(m_template.isNeedTxtEvl)
+    {
+        m_textEdit = new QTextEdit(this);
+        m_textEdit->setObjectName("textEvlPage");
+        m_textEdit->setFixedSize(414,80);
+        right->addSpacing(12);
+        right->addWidget(m_textEdit);
+        m_textEdit->setPlaceholderText(QStringLiteral("说说老师有哪里可以改进的呢？"));
+    }
     m_right->setLayout(right);
+    updateRightWhenChecked();
+}
 
-    m_stackWidget->setVisible(false);
-    m_textEdit->setVisible(false);
-
+void TeacherEvlPage::updateRightWhenChecked()
+{
+    if(m_resumeGroup->checkedButton())
+    {
+        m_stackWidget->setVisible(true);
+        if(m_template.isNeedTxtEvl)
+        {
+            m_textEdit->setVisible(true);
+        }
+    }
+    else
+    {
+        m_stackWidget->setVisible(false);
+        if(m_template.isNeedTxtEvl)
+        {
+            m_textEdit->setVisible(false);
+        }
+    }
 }

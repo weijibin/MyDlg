@@ -150,13 +150,51 @@ QPushButton#resumesBtn2:checked{
 }
 
 QWidget#resumesWidget0{
-    background-color:#ffff00;
+    background-color:#ffffff;
 }
 QWidget#resumesWidget1{
-    background-color:#ff00ff;
+    background-color:#ffffff;
 }
 QWidget#resumesWidget2{
-    background-color:#00ffff;
+    background-color:#ffffff;
+}
+
+QWidget#resumesWidget0 > QPushButton{
+    background-color:#ffffff;
+    border-style: solid;
+    border: 2px solid gray;
+    border-radius: 16px;
+    font-size:16px;
+    padding: 6px;
+}
+QWidget#resumesWidget0 > QPushButton:checked{
+    color:#F47D00;
+    border-color: #F47D00;
+/*    border-radius: 16px;*/
+}
+QWidget#resumesWidget1 > QPushButton{
+    background-color:#ffffff;
+    border-style: solid;
+    border: 2px solid gray;
+    border-radius: 16px;
+    font-size:16px;
+    padding: 6px;
+}
+QWidget#resumesWidget1 > QPushButton:checked{
+    color:#F47D00;
+    border-color: #F47D00;
+}
+QWidget#resumesWidget2 > QPushButton{
+    background-color:#ffffff;
+    border-style: solid;
+    border: 2px solid gray;
+    border-radius: 16px;
+    font-size:16px;
+    padding: 6px;
+}
+QWidget#resumesWidget2 > QPushButton:checked{
+    color:#F47D00;
+    border-color: #F47D00;
 }
 
 QTextEdit#textEvlPage{

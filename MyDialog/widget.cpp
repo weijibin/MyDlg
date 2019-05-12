@@ -38,12 +38,12 @@ void Widget::on_pushButton_clicked()
         temp1.img = QPixmap(":/res/default_girl_img.png");
         temp1.name = "111111";
         temp1.type = 1;
-        temp1.resumeDscrb = QStringList()<<QStringLiteral("满意")<<QStringLiteral("一般")
-                                        <<QStringLiteral("不满意");
+        temp1.resumeDscrb = QStringList()<<QStringLiteral("不满意")
+                                        <<QStringLiteral("有待提高")<<QStringLiteral("满意");
 
         QMap<int,QStringList> map;
         QStringList fonts1;
-        fonts1<< "Arial" << "Helvetica" << "Times" << "Courier";
+        fonts1<< "Arial" << QStringLiteral("讲的太快了") << QStringLiteral("很好，不能再好了") << "Courier";
         map.insert(0,fonts1);
         QStringList fonts2;
         fonts2 << "Arial22" << "Helvetica22" << "Times22" << "Courier22";
@@ -63,7 +63,7 @@ void Widget::on_pushButton_clicked()
         temp2.resumeDscrb = QStringList()<<QStringLiteral("满意")<<QStringLiteral("一般")
                                         <<QStringLiteral("不满意");
         temp2.detailDscrb = map;
-        temp2.isNeedTxtEvl = true;
+        temp2.isNeedTxtEvl = false;
 
         QMap<int,TeacherEvlTemplate> infos;
         infos.insert(temp1.type,temp1);
