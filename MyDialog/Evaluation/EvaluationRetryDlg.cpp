@@ -3,6 +3,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QDebug>
 
 EvaluationRetryDlg::EvaluationRetryDlg(QWidget *parent):EvaluationDlgBase(parent)
 {
@@ -10,6 +11,7 @@ EvaluationRetryDlg::EvaluationRetryDlg(QWidget *parent):EvaluationDlgBase(parent
 
     initBody();
     insertTitle();
+    initConnections();
 }
 void EvaluationRetryDlg::paintEvent(QPaintEvent *event)
 {
@@ -31,23 +33,30 @@ void EvaluationRetryDlg::initBody()
     hLayout->addWidget(m_closeBtn);
 
     layout->addLayout(hLayout);
-
-
     layout->addStretch();
+
     QLabel *label1 = new QLabel(m_frame);
     label1->setObjectName("retryTip");
     label1->setFixedSize(112,20);
     label1->setText(QString("提交失败，请重试"));
     label1->setAlignment(Qt::AlignHCenter);
-    layout->addWidget(label1,0,Qt::AlignCenter);
 
+    layout->addWidget(label1,0,Qt::AlignCenter);
     layout->addStretch();
 
-    QPushButton *retryBtn = new QPushButton(m_frame);
-    retryBtn->setObjectName("retryBtn");
-    retryBtn->setFixedSize(100,40);
-    layout->addWidget(retryBtn,0,Qt::AlignCenter);
+    m_retryBtn = new QPushButton(m_frame);
+    m_retryBtn->setObjectName("retryBtn");
+    m_retryBtn->setFixedSize(100,40);
+    layout->addWidget(m_retryBtn,0,Qt::AlignCenter);
 
     layout->addSpacing(20);
+
     m_frame->setLayout(layout);
+}
+
+void EvaluationRetryDlg::initConnections()
+{
+    connect(m_retryBtn,&QPushButton::clicked,[=](){
+        qDebug()<<"EvaluationRetryDlg::initConnections";
+    });
 }

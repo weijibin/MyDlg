@@ -57,7 +57,6 @@ void Widget::on_pushButton_clicked()
 
         TeacherEvlTemplate temp2;
         temp2.img = QPixmap(":/res/xue.png");
-//        temp2.img = QPixmap(":/res/default_girl_img.png");;
         temp2.name = "222222";
         temp2.type = 2;
         temp2.resumeDscrb = QStringList()<<QStringLiteral("满意")<<QStringLiteral("一般")
@@ -71,8 +70,6 @@ void Widget::on_pushButton_clicked()
 
         dlg->setEvlTemplate(infos);
     }
-
-//    dlg->setWindowModality(Qt::ApplicationModal);
     dlg->show();
 }
 

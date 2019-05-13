@@ -10,6 +10,10 @@ public:
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
     virtual void initBody() override;
+private:
+    void initConnections();
+private:
+    QPushButton * m_retryBtn = nullptr;
 };
 
 #endif // EVALUATIONRETRYDLG_H

@@ -9,7 +9,6 @@ EvaluationResultDlg::EvaluationResultDlg(QWidget *parent):EvaluationDlgBase(pare
     initBody();
     setFixedSize(200,128);
     setContentsMargins(0,0,0,0);
-
     m_closeBtn->setVisible(false);
 
 }

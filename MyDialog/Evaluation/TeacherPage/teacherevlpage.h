@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QFrame>
 #include <QPixmap>
-#include <Evaluation/EvaluationDlgBase.h>
+#include "Evaluation/EvaluationDlgBase.h"
 
 class QLabel;
 class QPushButton;

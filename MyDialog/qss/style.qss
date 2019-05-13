@@ -1,18 +1,3 @@
-/*QWidget{
-    background-color: ;
-    border-style: solid;
-    border: 2px solid gray;
-    border-radius: 20px;
-}
-QPushButton#retryBtn{
-    padding: 1px;
-    border-style: solid;
-    border: 2px solid gray;
-    border-radius: 8px;
-    border-image:url(:/res/icon_manyi click.png)
-}*/
-
-
 QFrame#titleEvaluation{
     border-image:url(:/res/pic_qinggeilaoshipingjia.png)
 }
@@ -160,41 +145,40 @@ QWidget#resumesWidget2{
 }
 
 QWidget#resumesWidget0 > QPushButton{
+    color:#5E5E7F;
     background-color:#ffffff;
-    border-style: solid;
-    border: 2px solid gray;
-    border-radius: 16px;
-    font-size:16px;
+    border: 1px solid #5E5E7F;
+    border-radius: 14px;
+    font-size:12px;
     padding: 6px;
 }
 QWidget#resumesWidget0 > QPushButton:checked{
-    color:#F47D00;
-    border-color: #F47D00;
-/*    border-radius: 16px;*/
+    color:#FB5E50;
+    border-color: #FB5E50;
 }
 QWidget#resumesWidget1 > QPushButton{
+    color:#5E5E7F;
     background-color:#ffffff;
-    border-style: solid;
-    border: 2px solid gray;
-    border-radius: 16px;
-    font-size:16px;
+    border: 1px solid #5E5E7F;
+    border-radius: 14px;
+    font-size:12px;
     padding: 6px;
 }
 QWidget#resumesWidget1 > QPushButton:checked{
-    color:#F47D00;
-    border-color: #F47D00;
+    color:#FB5E50;
+    border-color: #FB5E50;
 }
 QWidget#resumesWidget2 > QPushButton{
+    color:#5E5E7F;
     background-color:#ffffff;
-    border-style: solid;
-    border: 2px solid gray;
-    border-radius: 16px;
-    font-size:16px;
+    border: 1px solid #5E5E7F;
+    border-radius: 14px;
+    font-size:12px;
     padding: 6px;
 }
 QWidget#resumesWidget2 > QPushButton:checked{
-    color:#F47D00;
-    border-color: #F47D00;
+    color:#FB5E50;
+    border-color: #FB5E50;
 }
 
 QTextEdit#textEvlPage{
@@ -214,7 +198,8 @@ QWidget#evlScrollWidget{
 QScrollArea{
   border:0px solid;
   border-radius: 2px;
-  background-color: #f3f8ff;
+/*  background-color: #f3f8ff;*/
+  background-color: #ffffff;
 }
 
 QScrollBar:vertical
@@ -281,16 +266,3 @@ QScrollBar::sub-page:vertical
   border:0px solid;
   border-radius: 2px;
 }
-
-/*QScrollBar::up-arrow:vertical{
-  image : url(:/image/scroll_up_arrow.png);
-  border:0px solid;
-  border-radius: 3px;
-}
-
-QScrollBar::down-arrow:vertical {
-  image : url(:/image/scroll_down_arrow.png);
-  border:0px solid;
-  border-radius: 3px;
-}*/
-

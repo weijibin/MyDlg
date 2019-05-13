@@ -38,7 +38,6 @@ void EvaluationDlgBase::initBody()
     m_closeBtn->setFixedSize(20,20);
 
     m_layout->addWidget(m_frame);
-//    m_layout->setSizeConstraint(QLayout::SetMaximumSize);
     setContentsMargins(0,m_excessHeight,0,0);
     setLayout(m_layout);
 

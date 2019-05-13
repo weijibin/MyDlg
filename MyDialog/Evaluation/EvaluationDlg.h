@@ -15,6 +15,7 @@ protected:
     virtual void initBody() override;
 private:
     void updateUiByTemplate();
+    void initConnections();
 private:
     QPushButton *m_submitBtn = nullptr;
     QScrollArea *m_scrollEvlt = nullptr;
