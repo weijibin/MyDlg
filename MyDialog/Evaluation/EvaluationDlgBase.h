@@ -41,10 +41,10 @@ public:
     virtual void setEvlTemplate(QMap<int,TeacherEvlTemplate> &info);
 
 signals:
-    void sigSubmitResult(QMap<int,TeacherEvlResult> &info);
+    void sigSubmitResult(const QMap<int,TeacherEvlResult> &info);
 
 public slots:
-    void sltSubmitResult(bool isSuccess);
+    virtual void sltSubmitResult(bool isSuccess);
 
 protected:
     virtual void mousePressEvent(QMouseEvent*event) override;

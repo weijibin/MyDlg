@@ -22,6 +22,8 @@ public:
     const TeacherEvlResult& getResult();
     float getProcess(){return m_process;}
     void  setProcess(float val);
+
+    bool  isOutPutAvaliable();
 signals:
 
 public slots:
@@ -33,12 +35,15 @@ private:
 
     void updateRightWhenChecked();
     void spreadAnimation();
+    void updatePlaceHolderById(int index);
 private:
     TeacherEvlTemplate m_template;
     TeacherEvlResult m_result;
 private:
     float m_process=0;
     bool m_isFirstAni = true;
+
+    QStringList m_placeHolder;
 private:
     QFrame *m_left;
     QFrame *m_right;

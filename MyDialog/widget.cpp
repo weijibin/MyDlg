@@ -70,6 +70,8 @@ void Widget::on_pushButton_clicked()
 
         dlg->setEvlTemplate(infos);
     }
+    connect(dlg,SIGNAL(sigSubmitResult(QMap<int,TeacherEvlResult>)),
+            this,SLOT(slt_getEvlResult(QMap<int,TeacherEvlResult>)));
     dlg->show();
 }
 
@@ -91,4 +93,9 @@ void Widget::on_pushButton_3_clicked()
     dlg->setObjectName("evaluationRetryDlg");
 //    dlg->setWindowModality(Qt::ApplicationModal);
     dlg->show();
+}
+
+void Widget::slt_getEvlResult(const QMap<int, TeacherEvlResult> &result)
+{
+    qDebug()<<"Widget::slt_getEvlResult";
 }

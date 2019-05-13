@@ -23,6 +23,10 @@ TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QW
     initUI();
     m_result.type = m_template.type;
 //    this->adjustSize();
+
+    m_placeHolder.append(QStringLiteral("说说老师有哪里可以改进的呢？"));
+    m_placeHolder.append(QStringLiteral("说说老师有哪里可以改进的呢？"));
+    m_placeHolder.append(QStringLiteral("谢谢你的肯定，说点什么夸夸你的老师吧！"));
 }
 
 const TeacherEvlResult& TeacherEvlPage::getResult()
@@ -128,7 +132,7 @@ void TeacherEvlPage::initRight()
 //                TeacherEvlResult ret = getResult();
                 m_stackWidget->setCurrentIndex(i);
                 updateRightWhenChecked();
-
+                updatePlaceHolderById(i);
                 if(m_isFirstAni){
                     spreadAnimation();
                     m_isFirstAni = false;
@@ -141,7 +145,6 @@ void TeacherEvlPage::initRight()
 
         m_resumeWidget->setLayout(layoutResum);
     }
-
 
     m_stackWidget = new QStackedWidget(this);
 
@@ -210,6 +213,12 @@ void TeacherEvlPage::updateRightWhenChecked()
     }
 }
 
+void TeacherEvlPage::updatePlaceHolderById(int index)
+{
+    if(m_textEdit)
+        m_textEdit->setPlaceholderText(m_placeHolder.at(index));
+}
+
 void TeacherEvlPage::setProcess(float val)
 {
     m_process = val;
@@ -223,8 +232,22 @@ void TeacherEvlPage::setProcess(float val)
 void TeacherEvlPage::spreadAnimation()
 {
     QPropertyAnimation *animation = new QPropertyAnimation(this, "process");
-    animation->setDuration(1000);
+    animation->setDuration(500);
     animation->setStartValue(0);
     animation->setEndValue(1);
     animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+
+bool TeacherEvlPage::isOutPutAvaliable()
+{
+    bool isAvaliable = false;
+
+    const TeacherEvlResult& result = getResult();
+    bool isResumAvail = !result.resumeEvl.isEmpty();
+    bool isDetailAvail = result.detailEvl.size()>0;
+    bool isTextAvail =  m_template.isNeedTxtEvl? (!result.textEvl.isEmpty()):true;
+
+    isAvaliable = isResumAvail&&isDetailAvail&&isTextAvail;
+    return isAvaliable;
 }

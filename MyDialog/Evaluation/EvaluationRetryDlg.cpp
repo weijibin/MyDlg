@@ -57,6 +57,7 @@ void EvaluationRetryDlg::initBody()
 void EvaluationRetryDlg::initConnections()
 {
     connect(m_retryBtn,&QPushButton::clicked,[=](){
-        qDebug()<<"EvaluationRetryDlg::initConnections";
+        qDebug()<<"EvaluationRetryDlg::initConnections=== Retry";
+        emit sigSubmitResult(getResultInfo());
     });
 }

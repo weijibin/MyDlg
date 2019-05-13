@@ -5,7 +5,9 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QLabel>
 #include <QDebug>
+#include <QTimer>
 #include "TeacherPage/TeacherEvlPage.h"
 
 EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
@@ -75,7 +77,27 @@ void EvaluationDlg::initBody()
 //    layout->addWidget(m_loadingBtn,0,Qt::AlignCenter);
 //    m_loadingBtn->setDisabled(true);
 
-    layout->addSpacing(24);
+//    layout->addSpacing(24);
+
+    layout->addSpacing(3);
+
+    QWidget *w = new QWidget(m_frame);
+    w->setFixedHeight(17);
+    w->setContentsMargins(0,0,0,0);
+    QVBoxLayout *layout_w = new QVBoxLayout(w);
+    layout_w->setContentsMargins(0,0,0,0);
+    layout_w->setSpacing(0);
+
+    m_tipLabel = new QLabel(m_frame);
+    m_tipLabel->setFixedHeight(17);
+    m_tipLabel->setText("Error Tip!!!");
+    m_tipLabel->setVisible(false);
+    layout_w->addWidget(m_tipLabel,0,Qt::AlignCenter);
+    w->setLayout(layout_w);
+
+    layout->addWidget(w);
+
+    layout->addSpacing(4);
 
     m_frame->setLayout(layout);
 }
@@ -98,6 +120,8 @@ void EvaluationDlg::updateUiByTemplate()
         TeacherEvlPage * page1 = new TeacherEvlPage(m_evlTemplate.value(1), this);
         scrolLayout->addWidget(page1);
 
+        m_pages.append(page1);
+
         QMap<int,TeacherEvlTemplate>::Iterator iter = m_evlTemplate.begin();
         while(iter != m_evlTemplate.end())
         {
@@ -106,6 +130,7 @@ void EvaluationDlg::updateUiByTemplate()
                 scrolLayout->addSpacing(16);
                 TeacherEvlPage * page2 = new TeacherEvlPage(iter.value(), this);
                 scrolLayout->addWidget(page2);
+                m_pages.append(page2);
             }
             iter++;
         }
@@ -116,17 +141,44 @@ void EvaluationDlg::updateUiByTemplate()
     }
 }
 
+bool EvaluationDlg::checkTheValidity()
+{
+    bool isAvliable = true;
+    for(int i = 0; i<m_pages.size(); i++)
+    {
+        isAvliable &= m_pages.at(i)->isOutPutAvaliable();
+    }
+    return isAvliable;
+}
+
 void EvaluationDlg::initConnections()
 {
     connect(m_submitBtn,&QPushButton::clicked,[=]()
     {
-        QString temp = m_submitBtn->property("statusPropery").toString();
-        if(temp == "submit")
-            m_submitBtn->setProperty("statusPropery",QString("loading"));
+        if(checkTheValidity())
+        {
+            QString temp = m_submitBtn->property("statusPropery").toString();
+            if(temp == "submit")
+                m_submitBtn->setProperty("statusPropery",QString("loading"));
+            else
+                m_submitBtn->setProperty("statusPropery",QString("submit"));
+            m_submitBtn->style()->unpolish(m_submitBtn);
+            m_submitBtn->style()->polish(m_submitBtn);
+            m_submitBtn->update();
+            m_submitBtn->setEnabled(false);
+
+            qDebug()<<"EvaluationDlg::initConnections=== submit";
+            emit sigSubmitResult(getResultInfo());
+        }
         else
-            m_submitBtn->setProperty("statusPropery",QString("submit"));
-        m_submitBtn->style()->unpolish(m_submitBtn);
-        m_submitBtn->style()->polish(m_submitBtn);
-        m_submitBtn->update();
+        {
+            qDebug()<<"EvaluationDlg::initConnections=== Input Error!!!!";
+            m_tipLabel->setVisible(true);
+            m_tipLabel->setText("Error Input!!!");
+
+            QTimer::singleShot(2000,this,[=](){
+                m_tipLabel->setVisible(false);
+            });
+        }
     });
 }

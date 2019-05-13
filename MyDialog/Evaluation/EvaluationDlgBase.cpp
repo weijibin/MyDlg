@@ -1,4 +1,4 @@
-#include "evaluationdlgbase.h"
+﻿#include "evaluationdlgbase.h"
 #include <QStyleOption>
 #include <QPainter>
 #include <QFrame>
@@ -6,6 +6,8 @@
 #include <QHBoxLayout>
 #include <QMouseEvent>
 #include <QPushButton>
+#include "EvaluationResultDlg.h"
+#include "EvaluationRetryDlg.h"
 
 const int titlePngWidth = 314;
 const int titlePngHeight = 206;
@@ -76,11 +78,11 @@ void EvaluationDlgBase::sltSubmitResult(bool isSuccess)
 {
     if(isSuccess)
     {
-
+        //successful
     }
     else
     {
-
+        //retry
     }
 }
 

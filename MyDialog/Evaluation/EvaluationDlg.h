@@ -4,6 +4,8 @@
 
 class QPushButton;
 class QScrollArea;
+class TeacherEvlPage;
+class QLabel;
 class EvaluationDlg : public EvaluationDlgBase
 {
     Q_OBJECT
@@ -16,10 +18,16 @@ protected:
 private:
     void updateUiByTemplate();
     void initConnections();
+    bool checkTheValidity();
 private:
+
+//    QMap<int,TeacherEvlPage*> m_pages;
+    QList<TeacherEvlPage*> m_pages;
+
     QPushButton *m_submitBtn = nullptr;
     QScrollArea *m_scrollEvlt = nullptr;
     QWidget *m_scrollWidget = nullptr;
+    QLabel * m_tipLabel = nullptr;
 //    QPushButton *m_loadingBtn;
 };
 
