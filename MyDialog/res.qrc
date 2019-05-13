@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/assist.png</file>
         <file>res/icon_bumanyi click.png</file>
         <file>res/icon_bumanyi hover.png</file>
         <file>res/icon_bumanyi nor.png</file>
@@ -14,11 +13,7 @@
         <file>res/icon_youdaitigao click.png</file>
         <file>res/icon_youdaitigao hover.png</file>
         <file>res/icon_youdaitigao nor.png</file>
-        <file>res/main.png</file>
-        <file>res/pic_bumanyi.png</file>
-        <file>res/pic_manyi.png</file>
         <file>res/pic_qinggeilaoshipingjia.png</file>
-        <file>res/pic_youdaitigao.png</file>
         <file>res/PJ_button_nimingtijiaobingtuichu click.png</file>
         <file>res/PJ_button_nimingtijiaobingtuichu hover.png</file>
         <file>res/PJ_button_nimingtijiaobingtuichu nor.png</file>
@@ -27,7 +22,6 @@
         <file>res/button_chongshi hover.png</file>
         <file>res/button_chongshi nor.png</file>
         <file>res/PJ_button_nimingtijiaobingtuichu loading.png</file>
-        <file>res/default_teacher.png</file>
         <file>res/default_girl_img.png</file>
         <file>res/xue.png</file>
     </qresource>
