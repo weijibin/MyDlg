@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     Evaluation/EvaluationResultDlg.cpp \
     Evaluation/EvaluationDlg.cpp \
     Evaluation/TeacherPage/TeacherEvlPage.cpp \
-    Evaluation/TeacherPage/TeacherHeadImg.cpp
+    Evaluation/TeacherPage/TeacherHeadImg.cpp \
+    Evaluation/TeacherPage/TeacherEvlEdit.cpp
 
 HEADERS  += widget.h \
     Evaluation/EvaluationDlgBase.h \
@@ -27,7 +28,8 @@ HEADERS  += widget.h \
     Evaluation/EvaluationResultDlg.h \
     Evaluation/EvaluationDlg.h \
     Evaluation/TeacherPage/TeacherEvlPage.h \
-    Evaluation/TeacherPage/TeacherHeadImg.h
+    Evaluation/TeacherPage/TeacherHeadImg.h \
+    Evaluation/TeacherPage/TeacherEvlEdit.h
 
 FORMS    += widget.ui
 

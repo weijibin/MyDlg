@@ -12,6 +12,7 @@ class TeacherHeadImg;
 class QStackedWidget;
 class QTextEdit;
 class QButtonGroup;
+class TeacherEvlEdit;
 
 class TeacherEvlPage : public QWidget
 {
@@ -61,7 +62,7 @@ private:
     QStackedWidget * m_stackWidget;
 
 
-    QTextEdit * m_textEdit = nullptr;
+    TeacherEvlEdit * m_textEdit = nullptr;
 };
 
 #endif // TEACHEREVLPAGE_H

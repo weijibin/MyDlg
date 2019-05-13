@@ -12,6 +12,7 @@
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QDebug>
+#include "TeacherEvlEdit.h"
 
 TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QWidget(parent)
 {
@@ -182,7 +183,7 @@ void TeacherEvlPage::initRight()
 
     if(m_template.isNeedTxtEvl)
     {
-        m_textEdit = new QTextEdit(this);
+        m_textEdit = new TeacherEvlEdit(this);
         m_textEdit->setObjectName("textEvlPage");
         m_textEdit->setFixedSize(414,80);
         right->addSpacing(12);
