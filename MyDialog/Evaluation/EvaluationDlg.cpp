@@ -96,9 +96,7 @@ void EvaluationDlg::initBody()
     m_tipLabel->setVisible(false);
     layout_w->addWidget(m_tipLabel,0,Qt::AlignCenter);
     w->setLayout(layout_w);
-
     layout->addWidget(w);
-
     layout->addSpacing(4);
 
     m_frame->setLayout(layout);
@@ -107,6 +105,14 @@ void EvaluationDlg::initBody()
 void EvaluationDlg::setEvlTemplate(QMap<int, TeacherEvlTemplate> &info)
 {
     EvaluationDlgBase::setEvlTemplate(info);
+
+    //只有主讲时的特殊处理
+    if(info.size()==1)
+    {
+        m_scrollEvlt->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setFixedSize(594,278+m_excessHeight);
+    }
+
     if(info.size()>0)
         updateUiByTemplate();
 }
@@ -123,8 +129,18 @@ void EvaluationDlg::updateUiByTemplate()
         scrolLayout->addWidget(page1);
 
         connect(page1,&TeacherEvlPage::sigEnableVisible,[=](QWidget *w){
+            //此方法有问题 ，有改进空间
             int val = m_scrollEvlt->verticalScrollBar()->minimum();
             m_scrollEvlt->verticalScrollBar()->setValue(val);
+
+            //只有主讲时的特殊处理
+            if(m_evlTemplate.size()==1)
+            {
+                int curHeight = 155+w->height()+m_excessHeight;
+                if(curHeight > (278+m_excessHeight))
+                    setFixedHeight(curHeight);
+            }
+
         });
 
 

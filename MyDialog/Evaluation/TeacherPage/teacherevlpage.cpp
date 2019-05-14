@@ -229,7 +229,8 @@ void TeacherEvlPage::setProcess(float val)
     }
     m_stackWidget->setFixedHeight(val*100);
 
-    emit sigEnableVisible(this);
+    if(val>0)
+        emit sigEnableVisible(this);
 }
 
 void TeacherEvlPage::spreadAnimation()
