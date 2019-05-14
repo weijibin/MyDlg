@@ -1,4 +1,4 @@
-#include "EvaluationDlg.h"
+﻿#include "EvaluationDlg.h"
 #include <QStyleOption>
 #include <QPainter>
 #include <QHBoxLayout>
@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <QTimer>
+#include <QScrollBar>
 #include "TeacherPage/TeacherEvlPage.h"
 
 EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
@@ -89,6 +90,7 @@ void EvaluationDlg::initBody()
     layout_w->setSpacing(0);
 
     m_tipLabel = new QLabel(m_frame);
+    m_tipLabel->setObjectName("errorTip");
     m_tipLabel->setFixedHeight(17);
     m_tipLabel->setText("Error Tip!!!");
     m_tipLabel->setVisible(false);
@@ -120,6 +122,12 @@ void EvaluationDlg::updateUiByTemplate()
         TeacherEvlPage * page1 = new TeacherEvlPage(m_evlTemplate.value(1), this);
         scrolLayout->addWidget(page1);
 
+        connect(page1,&TeacherEvlPage::sigEnableVisible,[=](QWidget *w){
+            int val = m_scrollEvlt->verticalScrollBar()->minimum();
+            m_scrollEvlt->verticalScrollBar()->setValue(val);
+        });
+
+
         m_pages.append(page1);
 
         QMap<int,TeacherEvlTemplate>::Iterator iter = m_evlTemplate.begin();
@@ -131,6 +139,11 @@ void EvaluationDlg::updateUiByTemplate()
                 TeacherEvlPage * page2 = new TeacherEvlPage(iter.value(), this);
                 scrolLayout->addWidget(page2);
                 m_pages.append(page2);
+
+                connect(page2,&TeacherEvlPage::sigEnableVisible,[=](QWidget *w){
+                    int val = m_scrollEvlt->verticalScrollBar()->maximum();
+                    m_scrollEvlt->verticalScrollBar()->setValue(val);
+                });
             }
             iter++;
         }
@@ -138,15 +151,19 @@ void EvaluationDlg::updateUiByTemplate()
         scrolLayout->addStretch();
         scrolLayout->setSizeConstraint(QLayout::SetFixedSize);
         m_scrollWidget->setLayout(scrolLayout);
+
     }
 }
 
 bool EvaluationDlg::checkTheValidity()
 {
-    bool isAvliable = true;
+    m_resultInfo.clear();
+    bool isAvliable = false;
     for(int i = 0; i<m_pages.size(); i++)
     {
-        isAvliable &= m_pages.at(i)->isOutPutAvaliable();
+        isAvliable |= m_pages.at(i)->isOutPutAvaliable();
+        TeacherEvlResult ret = m_pages.at(i)->getResult();
+        m_resultInfo.insert(ret.type,ret);
     }
     return isAvliable;
 }
@@ -167,18 +184,43 @@ void EvaluationDlg::initConnections()
             m_submitBtn->update();
             m_submitBtn->setEnabled(false);
 
-            qDebug()<<"EvaluationDlg::initConnections=== submit";
+//            qDebug()<<"EvaluationDlg::initConnections=== submit";
             emit sigSubmitResult(getResultInfo());
         }
         else
         {
-            qDebug()<<"EvaluationDlg::initConnections=== Input Error!!!!";
+//            qDebug()<<"EvaluationDlg::initConnections=== Input Error!!!!";
             m_tipLabel->setVisible(true);
-            m_tipLabel->setText("Error Input!!!");
+            m_tipLabel->setText(getErrorInfoByResult());
 
             QTimer::singleShot(2000,this,[=](){
                 m_tipLabel->setVisible(false);
             });
         }
     });
+}
+
+QString EvaluationDlg::getErrorInfoByResult()
+{
+    QString info = "other";
+    int count = m_resultInfo.count();
+    if(count == 1)
+    {
+        if(m_resultInfo.value(1).resumeEvl.isEmpty())
+            info = QString::fromLocal8Bit("请选择一个满意度");
+        else
+            info = QString::fromLocal8Bit("请输入文字建议或至少选择一个标签");
+    }
+    else if(count == 2)
+    {
+        bool is1 = m_resultInfo.value(1).resumeEvl.isEmpty();
+        bool is2 = m_resultInfo.value(2).resumeEvl.isEmpty();
+
+        if(is1 && is2)
+            info = QString::fromLocal8Bit("请选择一个满意度");
+        else
+            info = QString::fromLocal8Bit("请至少为一位老师做出文字评价或者至少选择一个标签");
+    }
+
+    return info;
 }

@@ -266,3 +266,9 @@ QScrollBar::sub-page:vertical
   border:0px solid;
   border-radius: 2px;
 }
+
+QLabel#errorTip{
+    border: none;
+    color: #5E5E7F;
+    font-size:12px;
+}

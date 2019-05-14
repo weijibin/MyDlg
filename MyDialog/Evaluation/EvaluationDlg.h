@@ -19,6 +19,7 @@ private:
     void updateUiByTemplate();
     void initConnections();
     bool checkTheValidity();
+    QString getErrorInfoByResult();
 private:
 
 //    QMap<int,TeacherEvlPage*> m_pages;

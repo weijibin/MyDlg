@@ -26,7 +26,7 @@ public:
 
     bool  isOutPutAvaliable();
 signals:
-
+    void sigEnableVisible(QWidget*w);
 public slots:
 
 private:

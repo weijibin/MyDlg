@@ -62,7 +62,10 @@ void Widget::on_pushButton_clicked()
         temp2.resumeDscrb = QStringList()<<QStringLiteral("满意")<<QStringLiteral("一般")
                                         <<QStringLiteral("不满意");
         temp2.detailDscrb = map;
-        temp2.isNeedTxtEvl = false;
+        temp2.isNeedTxtEvl = true;
+
+        TeacherEvlTemplate temp3;
+        temp3 = temp2;
 
         QMap<int,TeacherEvlTemplate> infos;
         infos.insert(temp1.type,temp1);

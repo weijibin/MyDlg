@@ -228,6 +228,8 @@ void TeacherEvlPage::setProcess(float val)
         m_textEdit->setFixedHeight(val*80);
     }
     m_stackWidget->setFixedHeight(val*100);
+
+    emit sigEnableVisible(this);
 }
 
 void TeacherEvlPage::spreadAnimation()
@@ -249,6 +251,6 @@ bool TeacherEvlPage::isOutPutAvaliable()
     bool isDetailAvail = result.detailEvl.size()>0;
     bool isTextAvail =  m_template.isNeedTxtEvl? (!result.textEvl.isEmpty()):true;
 
-    isAvaliable = isResumAvail&&isDetailAvail&&isTextAvail;
+    isAvaliable = isResumAvail&&(isDetailAvail||isTextAvail);
     return isAvaliable;
 }
