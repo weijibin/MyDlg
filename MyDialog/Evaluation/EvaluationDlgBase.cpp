@@ -43,9 +43,6 @@ void EvaluationDlgBase::initBody()
     setContentsMargins(0,m_excessHeight,0,0);
     setLayout(m_layout);
 
-    connect(m_closeBtn,&QPushButton::clicked,[=](){
-        this->close();
-    });
 }
 
 void EvaluationDlgBase::mousePressEvent(QMouseEvent *event)
@@ -63,6 +60,7 @@ void EvaluationDlgBase::mouseMoveEvent(QMouseEvent *event)
     {
         move(event->globalPos() - m_offset);
         event->accept();
+        m_topLeft = event->globalPos() - m_offset;
     }
 }
 

@@ -28,12 +28,15 @@ public:
     bool  isOutPutAvaliable();
 signals:
     void sigEnableVisible(QWidget*w);
+    void sigInputChanged(int type);  //引起变化的类型  type: 1:选择主标签  2:选择子标签或者输入评价
 public slots:
 
 private:
     void initUI();
     void initLeft();
     void initRight();
+
+    void initConnections();
 
     void updateRightWhenChecked();
     void spreadAnimation();

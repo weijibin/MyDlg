@@ -10,8 +10,8 @@ TeacherEvlEdit::TeacherEvlEdit(QWidget *parent):QTextEdit(parent)
     m_color1 = "#8C8CA7";
     m_color2 = "#ff0000";
     m_tipColor = m_color1;
-    m_maxTextLength = 200;
-    m_warnLenght = 195;
+    m_maxTextLength = 20;
+    m_warnLenght = 15;
     m_textLength = 0;
 
     connect(this,SIGNAL(textChanged()),this,SLOT(sltTextChanged()));

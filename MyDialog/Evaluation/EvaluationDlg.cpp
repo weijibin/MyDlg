@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QScrollBar>
+#include <QTimeLine>
 #include "TeacherPage/TeacherEvlPage.h"
 
 EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
@@ -20,8 +21,12 @@ EvaluationDlg::EvaluationDlg(QWidget*parent):EvaluationDlgBase(parent)
 
     initConnections();
 
-//    m_loadingBtn->setVisible(false);
-//    m_submitBtn->setVisible(true);
+    m_loadingBtn->setVisible(false);
+    m_submitBtn->setVisible(true);
+}
+
+EvaluationDlg::~EvaluationDlg()
+{
 
 }
 
@@ -33,6 +38,11 @@ void EvaluationDlg::paintEvent(QPaintEvent *event)
 void EvaluationDlg::initBody()
 {
     EvaluationDlgBase::initBody();
+    connect(m_closeBtn,&QPushButton::clicked,[=](){
+        if(m_timeLine)
+            m_timeLine->stop();
+        this->close();
+    });
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0,0,0,0);
@@ -65,18 +75,22 @@ void EvaluationDlg::initBody()
 
     m_submitBtn = new QPushButton(m_frame);
     m_submitBtn->setObjectName("submitBtn");
-    m_submitBtn->setFixedSize(179,40);
+    m_submitBtn->setFixedSize(180,40);
     m_submitBtn->setProperty("statusPropery",QString("submit"));
     m_submitBtn->style()->unpolish(m_submitBtn);
     m_submitBtn->style()->polish(m_submitBtn);
 
     layout->addWidget(m_submitBtn,0,Qt::AlignCenter);
 
-//    m_loadingBtn = new QPushButton(m_frame);
-//    m_loadingBtn->setObjectName("loadingBtn");
-//    m_loadingBtn->setFixedSize(179,40);
-//    layout->addWidget(m_loadingBtn,0,Qt::AlignCenter);
-//    m_loadingBtn->setDisabled(true);
+    m_loadingBtn = new QLabel(m_frame);
+    m_loadingBtn->setAttribute(Qt::WA_TranslucentBackground, true);
+    m_loadingBtn->setObjectName("loadingBtn");
+    m_loadingBtn->setFixedSize(180,40);
+    m_loadingBtn->setPixmap(QPixmap(":/res/loading/3.png").scaled(180,40));
+    m_loadingBtn->adjustSize();
+
+    layout->addWidget(m_loadingBtn,0,Qt::AlignCenter);
+
 
 //    layout->addSpacing(24);
 
@@ -85,7 +99,7 @@ void EvaluationDlg::initBody()
     QWidget *w = new QWidget(m_frame);
     w->setFixedHeight(17);
     w->setContentsMargins(0,0,0,0);
-    QVBoxLayout *layout_w = new QVBoxLayout(w);
+    QHBoxLayout *layout_w = new QHBoxLayout(w);
     layout_w->setContentsMargins(0,0,0,0);
     layout_w->setSpacing(0);
 
@@ -93,13 +107,24 @@ void EvaluationDlg::initBody()
     m_tipLabel->setObjectName("errorTip");
     m_tipLabel->setFixedHeight(17);
     m_tipLabel->setText("Error Tip!!!");
-    m_tipLabel->setVisible(false);
+
+    m_tipIcon = new QPushButton(m_frame);
+    m_tipIcon->setObjectName("iconTip");
+    m_tipIcon->setFixedSize(17,17);
+
+    layout_w->addStretch();
+    layout_w->addWidget(m_tipIcon,0,Qt::AlignVCenter);
+    layout_w->addSpacing(4);
     layout_w->addWidget(m_tipLabel,0,Qt::AlignCenter);
+    layout_w->addStretch();
     w->setLayout(layout_w);
+
     layout->addWidget(w);
     layout->addSpacing(4);
 
     m_frame->setLayout(layout);
+
+    setTipVisible(false);
 }
 
 void EvaluationDlg::setEvlTemplate(QMap<int, TeacherEvlTemplate> &info)
@@ -115,15 +140,33 @@ void EvaluationDlg::setEvlTemplate(QMap<int, TeacherEvlTemplate> &info)
     cleanScrollWidget();
     if(info.size()>0)
         updateUiByTemplate();
+
+    m_rawHeight = this->height();
+    m_topLeft = this->pos();
+}
+
+void EvaluationDlg::setTipVisible(bool visible)
+{
+    m_tipVisible = visible;
+    m_tipIcon->setVisible(visible);
+    m_tipLabel->setVisible(visible);
 }
 
 void EvaluationDlg::cleanScrollWidget()
 {
+    m_pages.clear();
     delete m_scrollWidget;
     m_scrollWidget = nullptr;
     m_scrollWidget = new QWidget;
     m_scrollWidget->setObjectName("evlScrollWidget");
     m_scrollEvlt->setWidget(m_scrollWidget);
+    m_submitBtn->setProperty("statusPropery",QString("submit"));
+    m_submitBtn->style()->unpolish(m_submitBtn);
+    m_submitBtn->style()->polish(m_submitBtn);
+    m_submitBtn->update();
+
+    setTipVisible(false);
+    setLoadingState(false);
 }
 
 void EvaluationDlg::updateUiByTemplate()
@@ -145,13 +188,62 @@ void EvaluationDlg::updateUiByTemplate()
             //只有主讲时的特殊处理
             if(m_evlTemplate.size()==1)
             {
+//                int curHeight = 155+w->height()+m_excessHeight;
+//                if(curHeight > (278+m_excessHeight))
+//                    setFixedHeight(curHeight);
+
                 int curHeight = 155+w->height()+m_excessHeight;
                 if(curHeight > (278+m_excessHeight))
+                {
                     setFixedHeight(curHeight);
+
+                    float offset = (curHeight-m_rawHeight)/2;
+                    int y = m_topLeft.y();
+
+                    move(m_topLeft.x(),(y-offset));
+                }
             }
 
         });
 
+        connect(page1,&TeacherEvlPage::sigInputChanged,[=](int type){
+            if(m_tipVisible)
+            {
+                bool isCanHide = false;
+                int first = 1;
+                int count = m_resultInfo.count();
+                if(count == 1)
+                {
+                    if(m_errorTipType.second == type)
+                    {
+                        isCanHide = true;
+                    }
+                }
+                else
+                {
+                    if(checkTheValidity())
+                    {
+                        isCanHide = true;
+                    }
+                    else
+                    {
+                        if(m_errorTipType.first==3)
+                        {
+                            isCanHide = true;
+                        }
+                        else if(m_errorTipType.first == first)
+                        {
+                            if(type == m_errorTipType.second)
+                            {
+                                isCanHide = true;
+                            }
+                        }
+                    }
+                }
+                if(isCanHide)
+                    setTipVisible(!m_tipVisible);
+            }
+        });
 
         m_pages.append(page1);
 
@@ -169,6 +261,45 @@ void EvaluationDlg::updateUiByTemplate()
                     Q_UNUSED(w)
                     int val = m_scrollEvlt->verticalScrollBar()->maximum();
                     m_scrollEvlt->verticalScrollBar()->setValue(val);
+                });
+
+                connect(page2,&TeacherEvlPage::sigInputChanged,[=](int type){
+                    if(m_tipVisible)
+                    {
+                        bool isCanHide = false;
+                        int first = 2;
+                        int count = m_resultInfo.count();
+                        if(count == 1)
+                        {
+                            if(m_errorTipType.second == type)
+                            {
+                                isCanHide = true;
+                            }
+                        }
+                        else
+                        {
+                            if(checkTheValidity())
+                            {
+                                isCanHide = true;
+                            }
+                            else
+                            {
+                                if(m_errorTipType.first==3)
+                                {
+                                    isCanHide = true;
+                                }
+                                else if(m_errorTipType.first == first)
+                                {
+                                    if(type == m_errorTipType.second)
+                                    {
+                                        isCanHide = true;
+                                    }
+                                }
+                            }
+                        }
+                        if(isCanHide)
+                            setTipVisible(!m_tipVisible);
+                    }
                 });
             }
             iter++;
@@ -194,6 +325,54 @@ bool EvaluationDlg::checkTheValidity()
     return isAvliable;
 }
 
+void EvaluationDlg::startLoadingAnimation()
+{
+    if(!m_timeLine)
+    {
+        m_timeLine = new QTimeLine(1000,this);
+        m_timeLine->setFrameRange(1,9);;
+        m_timeLine->setUpdateInterval(100);
+        m_timeLine->setLoopCount(100);
+        connect(m_timeLine, &QTimeLine::frameChanged,[=](int index){
+            QString path = QString(":/res/loading/%1.png").arg(index);
+            QPixmap pix(path);
+            m_loadingBtn->setPixmap(pix.scaled(180,40));
+        });
+    }
+
+    m_timeLine->start();
+}
+
+void EvaluationDlg::stopLoadingAnimation()
+{
+    if(m_timeLine)
+        m_timeLine->stop();
+}
+
+void EvaluationDlg::setLoadingState(bool is)
+{
+    if(is)
+    {
+        m_submitBtn->setVisible(false);
+        m_loadingBtn->setVisible(true);
+
+        m_submitBtn->setEnabled(false);
+        m_scrollEvlt->setEnabled(false);
+
+        startLoadingAnimation();
+    }
+    else
+    {
+        m_submitBtn->setVisible(true);
+        m_loadingBtn->setVisible(false);
+        m_submitBtn->setEnabled(true);
+        m_scrollEvlt->setEnabled(true);
+
+        stopLoadingAnimation();
+    }
+
+}
+
 void EvaluationDlg::initConnections()
 {
     connect(m_submitBtn,&QPushButton::clicked,[=]()
@@ -208,22 +387,60 @@ void EvaluationDlg::initConnections()
             m_submitBtn->style()->unpolish(m_submitBtn);
             m_submitBtn->style()->polish(m_submitBtn);
             m_submitBtn->update();
-            m_submitBtn->setEnabled(false);
 
-//            qDebug()<<"EvaluationDlg::initConnections=== submit";
+            setTipVisible(false);
+
+            setLoadingState(true);
+
             emit sigSubmitResult(getResultInfo());
+
         }
         else
         {
-//            qDebug()<<"EvaluationDlg::initConnections=== Input Error!!!!";
-            m_tipLabel->setVisible(true);
+            setTipVisible(true);
             m_tipLabel->setText(getErrorInfoByResult());
 
-            QTimer::singleShot(2000,this,[=](){
-                m_tipLabel->setVisible(false);
-            });
+            m_errorTipType = getErrorType();
+
         }
     });
+}
+
+QPair<int,int> EvaluationDlg::getErrorType()
+{
+    QPair<int,int> type;
+
+    int count = m_resultInfo.count();
+    if(count == 1)
+    {
+        type.first = 1;
+        if(m_resultInfo.value(1).resumeEvl.isEmpty())
+            type.second = 1;
+        else
+            type.second = 2;
+    }
+    else if(count == 2)
+    {
+        bool is1 = m_resultInfo.value(1).resumeEvl.isEmpty();
+        bool is2 = m_resultInfo.value(2).resumeEvl.isEmpty();
+
+        if(is1 && is2)
+        {
+            type.first = 3;
+            type.second = 1;
+        }
+        else if(!is1)
+        {
+            type.first = 1;
+            type.second = 2;
+        }
+        else if(!is2)
+        {
+            type.first =2;
+            type.second =2;
+        }
+    }
+    return type;
 }
 
 QString EvaluationDlg::getErrorInfoByResult()

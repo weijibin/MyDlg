@@ -21,6 +21,9 @@ void EvaluationRetryDlg::paintEvent(QPaintEvent *event)
 void EvaluationRetryDlg::initBody()
 {
     EvaluationDlgBase::initBody();
+    connect(m_closeBtn,&QPushButton::clicked,[=](){
+        this->close();
+    });
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0,0,0,0);

@@ -28,11 +28,36 @@ TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QW
     m_placeHolder.append(QStringLiteral("说说老师有哪里可以改进的呢？"));
     m_placeHolder.append(QStringLiteral("说说老师有哪里可以改进的呢？"));
     m_placeHolder.append(QStringLiteral("谢谢你的肯定，说点什么夸夸你的老师吧！"));
+
+    initConnections();
 }
 
 TeacherEvlPage::~TeacherEvlPage()
 {
 
+}
+
+void TeacherEvlPage::initConnections()
+{
+    if(m_template.isNeedTxtEvl)
+    {
+        connect(m_textEdit,&QTextEdit::textChanged,[=](){
+            if(!m_textEdit->toPlainText().isEmpty())
+                emit sigInputChanged(2);
+        });
+    }
+
+    connect(m_resumeGroup,static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),[=](int id){
+        Q_UNUSED(id)
+        emit sigInputChanged(1);
+    });
+
+    foreach (QButtonGroup *grp, m_detailGroups) {
+        connect(grp,static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),[=](int id){
+            Q_UNUSED(id)
+            emit sigInputChanged(2);
+        });
+    }
 }
 
 const TeacherEvlResult& TeacherEvlPage::getResult()

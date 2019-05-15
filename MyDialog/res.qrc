@@ -24,5 +24,15 @@
         <file>res/PJ_button_nimingtijiaobingtuichu loading.png</file>
         <file>res/default_girl_img.png</file>
         <file>res/xue.png</file>
+        <file>res/icon_gantanhao.png</file>
+        <file>res/loading/1.png</file>
+        <file>res/loading/2.png</file>
+        <file>res/loading/3.png</file>
+        <file>res/loading/4.png</file>
+        <file>res/loading/5.png</file>
+        <file>res/loading/6.png</file>
+        <file>res/loading/7.png</file>
+        <file>res/loading/8.png</file>
+        <file>res/loading/9.png</file>
     </qresource>
 </RCC>

@@ -40,6 +40,8 @@ public:
     const QMap<int,TeacherEvlTemplate>& getEvlTemplate(){return m_evlTemplate;}
     virtual void setEvlTemplate(QMap<int,TeacherEvlTemplate> &info);
 
+    void setTopLeft(QPoint pt){m_topLeft = pt;}
+
 signals:
     void sigSubmitResult(const QMap<int,TeacherEvlResult> &info);
 
@@ -60,6 +62,9 @@ protected:
 
     QMap<int,TeacherEvlResult> m_resultInfo;
     QMap<int,TeacherEvlTemplate> m_evlTemplate;
+
+    QPoint m_topLeft;
+
 private:
     QPoint m_offset = QPoint();
     QVBoxLayout * m_layout;
