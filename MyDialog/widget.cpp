@@ -19,6 +19,11 @@ Widget::Widget(QWidget *parent) :
         f.close();
         this->setStyleSheet(a_qss);
     }
+
+    m_dlg = new EvaluationDlg(this);
+    m_dlg->setObjectName("evaluationgDlg");
+    connect(m_dlg,SIGNAL(sigSubmitResult(QMap<int,TeacherEvlResult>)),
+            this,SLOT(slt_getEvlResult(QMap<int,TeacherEvlResult>)));
 }
 
 Widget::~Widget()
@@ -30,8 +35,6 @@ Widget::~Widget()
 void Widget::on_pushButton_clicked()
 {
     qDebug()<< QStringLiteral("评价窗口");
-    EvaluationDlg *dlg = new EvaluationDlg(this);
-    dlg->setObjectName("evaluationgDlg");
 
     {
         TeacherEvlTemplate temp1;
@@ -69,13 +72,12 @@ void Widget::on_pushButton_clicked()
 
         QMap<int,TeacherEvlTemplate> infos;
         infos.insert(temp1.type,temp1);
-        infos.insert(temp2.type,temp2);
+//        infos.insert(temp2.type,temp2);
 
-        dlg->setEvlTemplate(infos);
+        m_dlg->setEvlTemplate(infos);
     }
-    connect(dlg,SIGNAL(sigSubmitResult(QMap<int,TeacherEvlResult>)),
-            this,SLOT(slt_getEvlResult(QMap<int,TeacherEvlResult>)));
-    dlg->show();
+
+    m_dlg->show();
 }
 
 //成功提示窗口

@@ -30,6 +30,11 @@ TeacherEvlPage::TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent) : QW
     m_placeHolder.append(QStringLiteral("谢谢你的肯定，说点什么夸夸你的老师吧！"));
 }
 
+TeacherEvlPage::~TeacherEvlPage()
+{
+
+}
+
 const TeacherEvlResult& TeacherEvlPage::getResult()
 {
     int index = m_resumeGroup->checkedId();

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "Evaluation/EvaluationDlgBase.h"
 
+class EvaluationDlg;
 namespace Ui {
 class Widget;
 }
@@ -24,6 +25,7 @@ private slots:
 
 private:
     Ui::Widget *ui;
+    EvaluationDlg * m_dlg=nullptr;
 };
 
 #endif // WIDGET_H

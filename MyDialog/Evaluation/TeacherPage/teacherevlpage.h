@@ -20,6 +20,7 @@ class TeacherEvlPage : public QWidget
     Q_PROPERTY(float process READ getProcess WRITE setProcess)
 public:
     explicit TeacherEvlPage(const TeacherEvlTemplate& t,QWidget *parent = 0);
+    virtual ~TeacherEvlPage();
     const TeacherEvlResult& getResult();
     float getProcess(){return m_process;}
     void  setProcess(float val);

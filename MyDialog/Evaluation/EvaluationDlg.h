@@ -20,6 +20,7 @@ private:
     void initConnections();
     bool checkTheValidity();
     QString getErrorInfoByResult();
+    void cleanScrollWidget();
 private:
 
 //    QMap<int,TeacherEvlPage*> m_pages;

@@ -112,9 +112,18 @@ void EvaluationDlg::setEvlTemplate(QMap<int, TeacherEvlTemplate> &info)
         m_scrollEvlt->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         setFixedSize(594,278+m_excessHeight);
     }
-
+    cleanScrollWidget();
     if(info.size()>0)
         updateUiByTemplate();
+}
+
+void EvaluationDlg::cleanScrollWidget()
+{
+    delete m_scrollWidget;
+    m_scrollWidget = nullptr;
+    m_scrollWidget = new QWidget;
+    m_scrollWidget->setObjectName("evlScrollWidget");
+    m_scrollEvlt->setWidget(m_scrollWidget);
 }
 
 void EvaluationDlg::updateUiByTemplate()
@@ -157,6 +166,7 @@ void EvaluationDlg::updateUiByTemplate()
                 m_pages.append(page2);
 
                 connect(page2,&TeacherEvlPage::sigEnableVisible,[=](QWidget *w){
+                    Q_UNUSED(w)
                     int val = m_scrollEvlt->verticalScrollBar()->maximum();
                     m_scrollEvlt->verticalScrollBar()->setValue(val);
                 });
