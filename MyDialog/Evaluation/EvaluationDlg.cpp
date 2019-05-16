@@ -332,7 +332,7 @@ void EvaluationDlg::startLoadingAnimation()
         m_timeLine = new QTimeLine(1000,this);
         m_timeLine->setFrameRange(1,9);;
         m_timeLine->setUpdateInterval(100);
-        m_timeLine->setLoopCount(100);
+        m_timeLine->setLoopCount(0);
         connect(m_timeLine, &QTimeLine::frameChanged,[=](int index){
             QString path = QString(":/res/loading/%1.png").arg(index);
             QPixmap pix(path);
@@ -360,6 +360,7 @@ void EvaluationDlg::setLoadingState(bool is)
         m_scrollEvlt->setEnabled(false);
 
         startLoadingAnimation();
+
     }
     else
     {
@@ -462,7 +463,7 @@ QString EvaluationDlg::getErrorInfoByResult()
         if(is1 && is2)
             info = QString::fromLocal8Bit("请选择一个满意度");
         else
-            info = QString::fromLocal8Bit("请至少为一位老师做出文字评价或者至少选择一个标签");
+            info = QString::fromLocal8Bit("请至少为一位老师做出文字评价或者一个以上标签");
     }
 
     return info;

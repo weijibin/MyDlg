@@ -34,5 +34,14 @@
         <file>res/loading/7.png</file>
         <file>res/loading/8.png</file>
         <file>res/loading/9.png</file>
+        <file>res/retryloading/1.png</file>
+        <file>res/retryloading/2.png</file>
+        <file>res/retryloading/3.png</file>
+        <file>res/retryloading/4.png</file>
+        <file>res/retryloading/5.png</file>
+        <file>res/retryloading/6.png</file>
+        <file>res/retryloading/7.png</file>
+        <file>res/retryloading/8.png</file>
+        <file>res/retryloading/9.png</file>
     </qresource>
 </RCC>

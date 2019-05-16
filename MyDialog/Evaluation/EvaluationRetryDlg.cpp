@@ -3,6 +3,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QTimeLine>
 #include <QDebug>
 
 EvaluationRetryDlg::EvaluationRetryDlg(QWidget *parent):EvaluationDlgBase(parent)
@@ -12,6 +13,8 @@ EvaluationRetryDlg::EvaluationRetryDlg(QWidget *parent):EvaluationDlgBase(parent
     initBody();
     insertTitle();
     initConnections();
+
+    setLoadingState(false);
 }
 void EvaluationRetryDlg::paintEvent(QPaintEvent *event)
 {
@@ -52,6 +55,14 @@ void EvaluationRetryDlg::initBody()
     m_retryBtn->setFixedSize(100,40);
     layout->addWidget(m_retryBtn,0,Qt::AlignCenter);
 
+    m_loadingBtn = new QLabel(m_frame);
+    m_loadingBtn->setAttribute(Qt::WA_TranslucentBackground, true);
+    m_loadingBtn->setFixedSize(100,40);
+    m_loadingBtn->setPixmap(QPixmap(":/res/retryloading/1.png").scaled(100,40));
+    m_loadingBtn->adjustSize();
+
+    layout->addWidget(m_loadingBtn,0,Qt::AlignCenter);
+
     layout->addSpacing(20);
 
     m_frame->setLayout(layout);
@@ -61,6 +72,56 @@ void EvaluationRetryDlg::initConnections()
 {
     connect(m_retryBtn,&QPushButton::clicked,[=](){
         qDebug()<<"EvaluationRetryDlg::initConnections=== Retry";
+        setLoadingState(true);
         emit sigSubmitResult(getResultInfo());
     });
 }
+
+void EvaluationRetryDlg::startLoadingAnimation()
+{
+    if(!m_timeLine)
+    {
+        m_timeLine = new QTimeLine(1000,this);
+        m_timeLine->setFrameRange(1,9);;
+        m_timeLine->setUpdateInterval(100);
+        m_timeLine->setLoopCount(0);
+        connect(m_timeLine, &QTimeLine::frameChanged,[=](int index){
+            QString path = QString(":/res/retryloading/%1.png").arg(index);
+            QPixmap pix(path);
+            m_loadingBtn->setPixmap(pix.scaled(100,40));
+        });
+    }
+
+    m_timeLine->start();
+}
+
+void EvaluationRetryDlg::stopLoadingAnimation()
+{
+    if(m_timeLine)
+        m_timeLine->stop();
+}
+
+void EvaluationRetryDlg::setLoadingState(bool is)
+{
+    if(is)
+    {
+        m_retryBtn->setVisible(false);
+        m_retryBtn->setEnabled(false);
+
+        m_loadingBtn->setVisible(true);
+
+        startLoadingAnimation();
+
+    }
+    else
+    {
+        m_retryBtn->setVisible(true);
+        m_retryBtn->setEnabled(true);
+
+        m_loadingBtn->setVisible(false);
+
+        stopLoadingAnimation();
+    }
+
+}
+

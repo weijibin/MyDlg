@@ -2,6 +2,8 @@
 #define EVALUATIONRETRYDLG_H
 #include "EvaluationDlgBase.h"
 
+class QLabel;
+class QTimeLine;
 class EvaluationRetryDlg : public EvaluationDlgBase
 {
     Q_OBJECT
@@ -12,8 +14,14 @@ protected:
     virtual void initBody() override;
 private:
     void initConnections();
+    void setLoadingState(bool is);
+    void startLoadingAnimation();
+    void stopLoadingAnimation();
 private:
     QPushButton * m_retryBtn = nullptr;
+    QLabel * m_loadingBtn = nullptr;
+    //animation
+    QTimeLine *m_timeLine = nullptr;
 };
 
 #endif // EVALUATIONRETRYDLG_H
