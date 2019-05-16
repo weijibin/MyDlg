@@ -25,6 +25,7 @@ void EvaluationRetryDlg::initBody()
 {
     EvaluationDlgBase::initBody();
     connect(m_closeBtn,&QPushButton::clicked,[=](){
+        emit sigClosed();
         this->close();
     });
 

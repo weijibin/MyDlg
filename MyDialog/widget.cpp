@@ -79,6 +79,13 @@ void Widget::on_pushButton_clicked()
 
     m_dlg->show();
     m_dlg->setTopLeft(m_dlg->pos());
+    QEventLoop loop;
+    m_dlg->disconnect(SIGNAL(sigClosed()));
+    connect(m_dlg,&EvaluationDlg::sigClosed,[=,&loop](){
+        qDebug()<<"===============EvaluationDlg::sigClosed===================";
+        loop.exit();
+    });
+    loop.exec();
 }
 
 //成功提示窗口

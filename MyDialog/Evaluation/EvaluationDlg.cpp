@@ -39,6 +39,7 @@ void EvaluationDlg::initBody()
 {
     EvaluationDlgBase::initBody();
     connect(m_closeBtn,&QPushButton::clicked,[=](){
+        emit sigClosed();
         if(m_timeLine)
             m_timeLine->stop();
         this->close();

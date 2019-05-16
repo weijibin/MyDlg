@@ -44,6 +44,7 @@ public:
 
 signals:
     void sigSubmitResult(const QMap<int,TeacherEvlResult> &info);
+    void sigClosed();
 
 public slots:
     virtual void sltSubmitResult(bool isSuccess);
