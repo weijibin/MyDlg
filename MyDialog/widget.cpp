@@ -7,27 +7,36 @@
 #include "Evaluation/EvaluationResultDlg.h"
 
 Widget::Widget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Widget)
+QWidget(parent),
+ui(new Ui::Widget)
 {
-    ui->setupUi(this);
-    this->setAutoFillBackground(true);
+	ui->setupUi(this);
+	this->setAutoFillBackground(true);
 
-    QFile f(":/qss/style.qss");
-    if ( f.open(QFile::ReadOnly) ) {
-        QByteArray a_qss (std::move(f.readAll()));
-        f.close();
-        this->setStyleSheet(a_qss);
-    }
+	QFile f(":/qss/style.qss");
+	if (f.open(QFile::ReadOnly)) {
+		QByteArray a_qss(std::move(f.readAll()));
+		f.close();
+		this->setStyleSheet(a_qss);
+	}
 
-    m_dlg = new EvaluationDlg(this);
-    m_dlg->setObjectName("evaluationgDlg");
-    connect(m_dlg,SIGNAL(sigSubmitResult(QMap<int,TeacherEvlResult>)),
-            this,SLOT(slt_getEvlResult(QMap<int,TeacherEvlResult>)));
+	m_dlg = new EvaluationDlg(this);
+	m_dlg->setObjectName("evaluationgDlg");
+	connect(m_dlg, SIGNAL(sigSubmitResult(QMap<int, TeacherEvlResult>)),
+		this, SLOT(slt_getEvlResult(QMap<int, TeacherEvlResult>)));
+
+    // 崩潰信息
+   // int *p = nullptr;
+	//*p = 100;
+	//这种崩溃会崩溃到qt 内部 导致 没有堆栈信息
+	QWidget *  w = nullptr;
+	w->show();
 }
 
 Widget::~Widget()
 {
+
+
     delete ui;
 }
 
