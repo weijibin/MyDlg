@@ -2,6 +2,7 @@
 #define TEACHEREVLEDIT_H
 #include <QTextEdit>
 #include <QRect>
+class QLabel;
 class TeacherEvlEdit : public QTextEdit
 {
     Q_OBJECT
@@ -19,6 +20,8 @@ private:
     int m_maxTextLength;
     int m_textLength;
     int m_warnLenght;
+
+    QLabel *m_tipLabel = nullptr;
 
 };
 

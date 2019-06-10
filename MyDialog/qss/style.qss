@@ -184,10 +184,10 @@ QWidget#resumesWidget2 > QPushButton:checked{
 QTextEdit#textEvlPage{
     border-radius: 8px;
     background: #ffffff;
-    padding-top:10px;
-    padding-right:16px;
-    padding-bottom:3px;
-    padding-left:16px;
+    padding-top:4px;
+    padding-right:10px;
+    padding-bottom:16px;
+    padding-left:10px;
     font-size: 12px
 }
 

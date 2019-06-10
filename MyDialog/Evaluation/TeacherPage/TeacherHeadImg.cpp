@@ -8,7 +8,13 @@ TeacherHeadImg::TeacherHeadImg(int type,const QPixmap &map,QWidget*parent) : QWi
     m_type = type;
     m_pix = map;
 
+    bool is = map.save(QString("test%1.png").arg(type));
+
     this->setFixedSize(60,60);
+
+    m_pix = map.scaled(60,60,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+    bool is1 = m_pix.save(QString("test%1.png").arg(type+10));
+
     if(type == 1)
     {
         m_teacherType = QStringLiteral("主讲");
@@ -33,7 +39,7 @@ void TeacherHeadImg::paintEvent(QPaintEvent *event)
 
     Q_UNUSED(event)
     QPainter painter(this);
-    painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing,true);
+    painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
 
     painter.save();
@@ -56,7 +62,7 @@ void TeacherHeadImg::paintEvent(QPaintEvent *event)
 
     painter.save();
     QFont font;
-    font.setPixelSize(8);
+    font.setPixelSize(11);
     painter.setFont(font);
 
     QPen pen;

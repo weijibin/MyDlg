@@ -41,6 +41,9 @@ private:
     void updateRightWhenChecked();
     void spreadAnimation();
     void updatePlaceHolderById(int index);
+    void clearDetailChecked(QButtonGroup *group);
+
+    QString getElidedText(QFont font, QString str, int maxWidth);
 private:
     TeacherEvlTemplate m_template;
     TeacherEvlResult m_result;

@@ -124,7 +124,8 @@ void TeacherEvlPage::initLeft()
     m_teacherName->setFixedHeight(20);
     m_teacherName->setObjectName("teacherName");
     m_teacherName->setAlignment(Qt::AlignCenter);
-    m_teacherName->setText(m_template.name);
+//    m_teacherName->setText(m_template.name);
+    m_teacherName->setText(getElidedText( m_teacherName->font(),m_template.name,54));
 
     left->addWidget(m_teacherImg);
     left->addSpacing(9);
@@ -132,6 +133,17 @@ void TeacherEvlPage::initLeft()
     left->addStretch();
 
     m_left->setLayout(left);
+}
+
+QString TeacherEvlPage::getElidedText(QFont font, QString str, int maxWidth)
+{
+    QFontMetrics fontWidth(font);
+    int width = fontWidth.width(str);
+    if(width>=maxWidth)
+    {
+        str = fontWidth.elidedText(str,Qt::ElideRight,maxWidth);
+    }
+    return str;
 }
 
 void TeacherEvlPage::initRight()
@@ -164,6 +176,7 @@ void TeacherEvlPage::initRight()
                 m_stackWidget->setCurrentIndex(i);
                 updateRightWhenChecked();
                 updatePlaceHolderById(i);
+                clearDetailChecked(m_detailGroups.at(i));
                 if(m_isFirstAni){
                     spreadAnimation();
                     m_isFirstAni = false;
@@ -224,6 +237,13 @@ void TeacherEvlPage::initRight()
     updateRightWhenChecked();
 }
 
+void TeacherEvlPage::clearDetailChecked(QButtonGroup *group)
+{
+    foreach (QAbstractButton *btn, group->buttons()) {
+        btn->setChecked(false);
+    }
+}
+
 void TeacherEvlPage::updateRightWhenChecked()
 {
     if(m_resumeGroup->checkedButton())
@@ -280,7 +300,7 @@ bool TeacherEvlPage::isOutPutAvaliable()
     const TeacherEvlResult& result = getResult();
     bool isResumAvail = !result.resumeEvl.isEmpty();
     bool isDetailAvail = result.detailEvl.size()>0;
-    bool isTextAvail =  m_template.isNeedTxtEvl? (!result.textEvl.isEmpty()):true;
+    bool isTextAvail =  m_template.isNeedTxtEvl? (!result.textEvl.trimmed().isEmpty()):true;
 
     isAvaliable = isResumAvail&&(isDetailAvail||isTextAvail);
     return isAvaliable;

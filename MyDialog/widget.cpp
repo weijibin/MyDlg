@@ -29,8 +29,16 @@ ui(new Ui::Widget)
    // int *p = nullptr;
 	//*p = 100;
 	//这种崩溃会崩溃到qt 内部 导致 没有堆栈信息
-	QWidget *  w = nullptr;
-	w->show();
+//	QWidget *  w = nullptr;
+//	w->show();
+
+    QString a = "   \r\n"
+                "   ";
+    qDebug()<<a.size();
+    qDebug()<<a.trimmed().size();
+    qDebug()<<a.trimmed();
+    qDebug()<<a.simplified().size();
+    qDebug()<<a.simplified();
 }
 
 Widget::~Widget()
@@ -48,7 +56,7 @@ void Widget::on_pushButton_clicked()
     {
         TeacherEvlTemplate temp1;
         temp1.img = QPixmap(":/res/default_girl_img.png");
-        temp1.name = "111111";
+        temp1.name = "dafdsfad111111Hello";
         temp1.type = 1;
         temp1.resumeDscrb = QStringList()<<QStringLiteral("不满意")
                                         <<QStringLiteral("有待提高")<<QStringLiteral("满意");
@@ -69,7 +77,7 @@ void Widget::on_pushButton_clicked()
 
         TeacherEvlTemplate temp2;
         temp2.img = QPixmap(":/res/xue.png");
-        temp2.name = "222222";
+        temp2.name = QStringLiteral("我的名字11");
         temp2.type = 2;
         temp2.resumeDscrb = QStringList()<<QStringLiteral("满意")<<QStringLiteral("一般")
                                         <<QStringLiteral("不满意");
@@ -81,7 +89,7 @@ void Widget::on_pushButton_clicked()
 
         QMap<int,TeacherEvlTemplate> infos;
         infos.insert(temp1.type,temp1);
-//        infos.insert(temp2.type,temp2);
+        infos.insert(temp2.type,temp2);
 
         m_dlg->setEvlTemplate(infos);
     }
